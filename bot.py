@@ -17,7 +17,7 @@ try:
         json.load(stats)
 except: 
     setStats = {}
-    with open(STATS, "W") as stats:
+    with open(STATS, "w") as stats:
         json.dump(setStats, stats)
 
 try:
@@ -25,7 +25,7 @@ try:
         json.load(stats)
 except: 
     setStats = {}
-    with open(STATS, "W") as stats:
+    with open(SCORES, "w") as stats:
         json.dump(setStats, stats)
         
 
