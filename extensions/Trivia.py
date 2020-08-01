@@ -59,7 +59,7 @@ class Trivia(commands.Cog):
             if pscore > phighscore:
                 phighscore = pscore
             pscore = 0
-            return await ctx.message.channel.send('Sorry, you took too long the answer was {}. \n Your high score is: ' + str(phighscore) + '' .format(answers[0]))
+            return await ctx.message.channel.send(f'Sorry, you took too long! The answer was {answers[0]}.' + '\n Your high score is: ' + str(phighscore))
 
         if choices[int(guess.content)-1] == answers[0]:
             pscore += 1
@@ -70,7 +70,7 @@ class Trivia(commands.Cog):
             if pscore > phighscore:
                 phighscore = pscore
             pscore = 0
-            await ctx.message.channel.send('Oh no! The answer was {}.'.format(answers[0]) + '\n Your high score is: ' + str(phighscore))
+            await ctx.message.channel.send(f'Oh no! The answer was {answers[0]}.' + '\n Your high score is: ' + str(phighscore))
         
         scoreset[player]["Score"] = pscore
         scoreset[player]["High Score"] = phighscore

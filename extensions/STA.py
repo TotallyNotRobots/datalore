@@ -5,6 +5,7 @@ from discord.ext import commands
 load_dotenv()
 
 STATS = os.getenv('STA_STATS')
+GSTATS = os.getenv('GAME_STATS')
 
 class STA(commands.Cog):
     def __init__(self, bot):
@@ -39,13 +40,79 @@ class STA(commands.Cog):
         embed.add_field(name="Reason", value=attributes["Reason"], inline=True)
         embed.add_field(name="Disciplines", value="---", inline=False)
         embed.add_field(name="Command", value=disciplines["Command"])
-        embed.add_field(name="Conn", value=disciplines["Conn"])
         embed.add_field(name="Security", value=disciplines["Security"])
-        embed.add_field(name="Engineering", value=disciplines["Engineering"])
         embed.add_field(name="Science", value=disciplines["Science"])
+        embed.add_field(name="Conn", value=disciplines["Conn"])        
+        embed.add_field(name="Engineering", value=disciplines["Engineering"])
         embed.add_field(name="Medicine", value=disciplines["Medicine"])
 
         await ctx.send(embed=embed)
+
+    @commands.command(name="game_stats", help="View and Modify current Game Stats")
+    async def gameStats(self, ctx, op="get", stat=None, value=0, send=True, color=discord.Colour.gold()):
+        try:
+            with open(GSTATS + '.' + ctx.channel.name + '.json') as stats: 
+                gstats = {}
+                try:
+                     gstats = json.load(stats)
+                     if gstats["Momentum"] > 6:
+                        gstats["Momentum"] = 6
+                except: 
+                    gstats = {}
+                    gstats["Momentum"] = 0
+                    gstats["Threat"] = 0
+                    with open(GSTATS + '.' + ctx.channel.name + '.json', "w") as stats:
+                        json.dump(gstats, stats)
+        except:
+            with open(GSTATS + '.' + ctx.channel.name + '.json', "w+") as stats: 
+                gstats = {}
+                try:
+                    gstats = json.load(stats)
+                    if gstats["Momentum"] > 6:
+                        gstats["Momentum"] = 6
+                    if gstats["Threat"] > 10:
+                        gstats["Threat"] = 10
+                except: 
+                    gstats = {}
+                    gstats["Momentum"] = 0
+                    gstats["Threat"] = 0
+                    with open(GSTATS + '.' + ctx.channel.name + '.json', "w") as stats:
+                        json.dump(gstats, stats)
+
+        if op == "get":
+            embed = discord.Embed(title="Game Stats", 
+                                  description = f'***{ctx.channel.name}***  Threat and Momentum', 
+                                  colour = color)
+            
+            embed.add_field(name="Momentum", value=gstats["Momentum"])
+            embed.add_field(name="Threat", value=gstats["Threat"])
+
+            await ctx.send(embed=embed)
+
+        elif op == "sub":
+            try:
+                gstats[stat] -= value
+                with open(GSTATS + '.' + ctx.channel.name + '.json', "w") as stats:
+                    json.dump(gstats, stats)
+                if send:
+                    await self.gameStats(ctx, "get", color = discord.Colour.magenta())
+            except:
+                await ctx.send("Something about that was not right. Does that Stat exist?")
+        
+        elif op == "add":
+            try:
+                gstats[stat] += value
+                with open(GSTATS + '.' + ctx.channel.name + '.json', "w") as stats:
+                    json.dump(gstats, stats)
+                if send:
+                    await self.gameStats(ctx, "get", color = discord.Colour.green())
+            except:
+                await ctx.send("Something about that was not right. Does that Stat exist?")
+
+        else:
+            await ctx.send("Please see the help, I did not understand your command.")
+        
+
 
     @commands.command(name="get_char", help="View current player Stats.")
     async def getStat(self, ctx):
@@ -238,7 +305,77 @@ class STA(commands.Cog):
         embed.add_field(name="Complications: ", value=scores[1])
         embed.add_field(name="Rolls: ", value=str(rolls), inline=True)
         if scores[0] > target:
-            embed.add_field(name="Momentum: ", value=scores[0]-target, inline=True)
+            momentum = scores[0]-target
+            embed.add_field(name="Momentum: ", value=momentum, inline=True)
+            await self.gameStats(ctx, op="add", stat="Momentum", value=momentum, send=False)
+        if success: 
+            embed.set_image(url="https://jcboysha.com/STA/Green-alert.gif")
+        if success and complications:
+            embed.set_image(url="https://jcboysha.com/STA/Yellow-alert.gif")
+        if not success: 
+            embed.set_image(url="https://jcboysha.com/STA/Red-alert.gif")
+
+        await ctx.send(embed=embed)
+
+    @commands.command(name="GMChallenge", help="Undertake a challenge. <more> \n usage: Challenge <Attribute> <Attribute Score> <Discipline> <Disciplne Score> <Difficulty> <dice pool>")
+    async def challenge(self, ctx, attribute: str, attr: int, discipline: str, disc: int, target: int, dicePool: int):    
+        challengeValue = int(attr) + int(disc)
+        
+        # Success, Complication
+        scores = [0,0]
+
+        success = False
+        complications = False
+
+        rolls = []
+        for i in range(0, dicePool):
+            rolls.append(random.randint(1,20))
+        
+        for roll in rolls:
+            if roll >= 20:
+                scores[1] += 1
+            if roll < challengeValue:
+                scores[0] += 1
+            if roll < disc:
+                scores[0] += 1
+
+        if scores[0] >= target:
+            success = True
+
+        else:
+            success = False
+
+        if scores[1] > 0:
+            complications = True
+
+        if success:
+            embed = discord.Embed(
+                title="Challenge",
+                description=str(discipline) + " + " + str(attribute),
+                colour = discord.Colour.green()
+            )
+
+        if success and complications:
+            embed = discord.Embed(
+                title="Challenge",
+                description=str(discipline) + " + " + str(attribute),
+                colour = discord.Colour.gold()
+            )
+
+        if not success: 
+            embed = discord.Embed(
+                title="Challenge",
+                description=str(discipline) + " + " + str(attribute),
+                colour = discord.Colour.red()
+            )
+        embed.add_field(name="difficulty: ", value=target, inline=False)
+        embed.add_field(name="Successes: ", value=scores[0])
+        embed.add_field(name="Complications: ", value=scores[1])
+        embed.add_field(name="Rolls: ", value=str(rolls), inline=True)
+        if scores[0] > target:
+            Threat = scores[0]-target
+            embed.add_field(name="Threat: ", value=Threat, inline=True)
+            await self.gameStats(ctx, op="add", stat="Threat", value=Threat, send=False)
         if success: 
             embed.set_image(url="https://jcboysha.com/STA/Green-alert.gif")
         if success and complications:
