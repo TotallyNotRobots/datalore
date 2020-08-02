@@ -26,7 +26,7 @@ def import_or_install(package_list):
         except ImportError:
             pip.main(['install', package])
 
-import_or_install(os, discord, csv, random, asyncio, json, dotenv)
+import_or_install(['os', 'discord', 'csv', 'random', 'asyncio', 'json', 'dotenv'])
 
 print("Welcome to the Datalore installer! I am here to help you get configured.")
 print("At any point you can respond to a question with a capital 'Q' to quit.")
