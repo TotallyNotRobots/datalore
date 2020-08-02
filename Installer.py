@@ -81,6 +81,7 @@ def getURL():
             elif resp[0].lower() == "n":
                 print("You will need to host the images on a server. These images are provided in the imgs folder.\n\
                        The images also need to be hosted on an SSL connection.")
+                return ""
             else:
                 print("Please respond yes, or no.")
             continue
@@ -96,9 +97,10 @@ def setenv(URL, TOKEN, COMMCHAR):
     with fileinput.FileInput('.env', inplace=True, backup='.bak') as file:
         for line in file:
             print(line.replace('<##TOKEN##>', TOKEN), end='')
-    with fileinput.FileInput('.env', inplace=True, backup='.bak') as file:
-        for line in file:            
-            print(line.replace('<##URL##>', URL), end='')
+    if URL is not "" or URL is not None:
+        with fileinput.FileInput('.env', inplace=True, backup='.bak') as file:
+            for line in file:            
+                print(line.replace('<##URL##>', URL), end='')
     with fileinput.FileInput('.env', inplace=True, backup='.bak') as file:
         for line in file:            
             print(line.replace('<##COMMCHAR##>', COMMCHAR), end='')
