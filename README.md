@@ -14,6 +14,18 @@ I debated about this for awhile, and I decided to release the code for self-host
 ## Installation and Configuration
 The app can be installed and configured by using the Installer.py interactive installer by running `python3 Installer.py`
 
+### Dependencies
+This bot relies on the following Dependencies: (* denotes built in Python module)
+- os*
+- discord
+- csv*
+- random*
+- asyncio*
+- json*
+- dotenv
+
+It was written to work in Python 3.6.9
+
 ## Documentation
 The documentation is growing, but I intend to release full walkthroughs in installation and running. It's truly a very straightforward app, at the moment... I hope I remember to get rid of this if it becomes complicated...
 
