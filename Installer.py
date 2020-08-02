@@ -99,5 +99,21 @@ URL = getURL()
 COMMCHAR = getCommandChar()
 setenv(URL, TOKEN, COMMCHAR)
 
+print("Now you will need to invite the bot to your server! \n\
+        \t1) In a web browser, navigate to https://www.discord.com/developers/ and login with your discord login information\n\
+        \t2) On your dashboard please select your bot's application\n\
+        \t3) From your application dashboard, select \"Oauth2\" on the left hand menu\n\
+        \t4) You will need to ensure your bot has the following permissions\n\
+        \t\ta) bot\n\
+        \t\tb) Send Messages\n\
+        \t\tc) Send TTS Messages (for future features)\n\
+        \t\td) Embed Links\n\
+        \t\te) Attach Files\n\
+        \t\tf) Mention Everyone (for future features)\n\
+        \t\tb) You can also upload an image for the bot to use as its avatar\n\
+        \t5) In the URL bar above the permissions selection, copy the URL and navigate to it in a browser\n\
+        \t\ta) This will be in the \"scope\" box\n\
+        \t6) Follow the prompts in the URL to add the bot to your server!")
+
 print("Thank you for using the DataLore installer! You can now run the bot from this directory by running\n\
     'python3 bot.py`")
