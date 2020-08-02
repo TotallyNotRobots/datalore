@@ -11,6 +11,9 @@ I debated about this for awhile, and I decided to release the code for self-host
 2) With the way Discord bots work, you could host it on a Raspberry Pi connected to a 4G connection if you wanted to
 3) Providing a Bot As A Service (BAAS) comes with some risks that I, frankly, just didn't want to take 
 
+## Installation and Configuration
+The app can be installed and configured by using the Installer.py interactive installer by running `python3 Installer.py`
+
 ## Documentation
 The documentation is growing, but I intend to release full walkthroughs in installation and running. It's truly a very straightforward app, at the moment... I hope I remember to get rid of this if it becomes complicated...
 
