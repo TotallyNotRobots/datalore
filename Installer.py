@@ -29,7 +29,7 @@ COMMCHAR="%"
 def getToken():
     resp = ""
     while resp != "Q":
-        resp = input("Have you configured a Discord Token for your bot?")
+        resp = input("Have you configured a Discord Token for your bot? ")
         if resp[0].lower() == "y":
             TOKEN = input("What is your token? ")
             return TOKEN
@@ -58,15 +58,14 @@ def getToken():
 def getURL():
     resp = ""
     while resp != "Q":
-        resp = input("Do you have a URL you would like to use for images\n(If you select No, this can be configured later on manually\
+        resp = input("Do you have a URL you would like to use for images\n(If you select No, this can be configured later on manually\n\
             but the bot will not display images in embeds until this is configured)? ")
         if resp[0].lower() == "y":
-            resp = input("Have you configured hosting for your bot's images?")
+            resp = input("Have you configured hosting for your bot's images? ")
             if resp[0].lower() == "y":
                 print("This will be the directory you will host bot images in. \n If this is not configured, images will not display in embeds.")
                 URL = input("Please input the base path for bot assets eg. https://www.someurl.com/botimages/ : ")
-                print(URL)
-                if URL[0:4] != "https":
+                if URL[0:5] != "https":
                     print("The host needs to be SSL enabled for this to function properly. Please use Let's Encrypt to get a Free SSL cert!")
                     continue
                 return URL
@@ -88,7 +87,11 @@ def setenv(URL, TOKEN, COMMCHAR):
     with fileinput.FileInput('.env', inplace=True, backup='.bak') as file:
         for line in file:
             print(line.replace('<##TOKEN##>', TOKEN), end='')
+    with fileinput.FileInput('.env', inplace=True, backup='.bak') as file:
+        for line in file:            
             print(line.replace('<##URL##>', URL), end='')
+    with fileinput.FileInput('.env', inplace=True, backup='.bak') as file:
+        for line in file:            
             print(line.replace('<##COMMCHAR##>', COMMCHAR), end='')
 
 TOKEN = getToken()

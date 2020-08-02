@@ -62,7 +62,7 @@ for filename in os.listdir('extensions'):
 
 @client.event
 async def on_message(message):
-    if URL not None:
+    if URL is not None:
         if message.content == "WHAT IS IT?!":
             embed = discord.Embed(title="A HUNTER DESTROYER MACHINE")
             embed.set_image(url="https://vignette.wikia.nocookie.net/zimwiki/images/1/19/Hunter_Destroyer_Machine.png/revision/latest/scale-to-width-down/340?cb=20130307023703")
