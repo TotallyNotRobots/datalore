@@ -1,3 +1,21 @@
+'''
+STA - A COG Module for the Datalore Discord bot
+(C) 2020 J.C. Boysha
+    This file is part of Datalore.
+
+    Datalore is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    any later version.
+
+    Datalore is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Datalore.  If not, see <https://www.gnu.org/licenses/>.
+'''
 import os, discord, csv, random, asyncio, json
 from dotenv import load_dotenv
 from discord.ext import commands
