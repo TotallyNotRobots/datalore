@@ -46,8 +46,8 @@ class STA(commands.Cog):
         current = pstats
         attributes = current["Attributes"]
         disciplines = current["Disciplines"]
-
-        embed.set_author(name = player, icon_url=URL+"Commbadge.png")
+        if URL not None:
+            embed.set_author(name = player, icon_url=URL+"Commbadge.png")
         embed.add_field(name="Stress", value = pstats["Stress"], inline=True)
         embed.add_field(name="Determination", value=pstats["Determination"], inline=True)
         embed.add_field(name="Attributes", value="---", inline=False)
@@ -359,11 +359,14 @@ class STA(commands.Cog):
             embed.add_field(name="Momentum: ", value=momentum, inline=True)
             await self.gameStats(ctx, op="add", stat="Momentum", value=momentum, send=False)
         if success: 
-            embed.set_image(url=URL+"Green-alert.gif")
+            if URL not None:
+                embed.set_image(url=URL+"Green-alert.gif")
         if success and complications:
-            embed.set_image(url=URL+"Yellow-alert.gif")
+            if URL not None:
+                embed.set_image(url=URL+"Yellow-alert.gif")
         if not success: 
-            embed.set_image(url=URL+"Red-alert.gif")
+            if URL not None:
+                embed.set_image(url=URL+"Red-alert.gif")
 
         await ctx.send(embed=embed)
 
@@ -428,11 +431,14 @@ class STA(commands.Cog):
             embed.add_field(name="Threat: ", value=Threat, inline=True)
             await self.gameStats(ctx, op="add", stat="Threat", value=Threat, send=False)
         if success: 
-            embed.set_image(url=URL+"Green-alert.gif")
+            if URL not None:
+                embed.set_image(url=URL+"Green-alert.gif")
         if success and complications:
-            embed.set_image(url=URL+"Yellow-alert.gif")
+            if URL not None:
+                embed.set_image(url=URL+"Yellow-alert.gif")
         if not success: 
-            embed.set_image(url=URL+"Red-alert.gif")
+            if URL not None:
+                embed.set_image(url=URL+"Red-alert.gif")
 
         await ctx.send(embed=embed)
 
