@@ -11,6 +11,7 @@ load_dotenv()
 STATS = os.getenv('STA_STATS')
 GSTATS = os.getenv('GAME_STATS')
 SCORES = os.getenv('SCORES')
+URL = os.getenv('URL_PATH')
 
 try: 
     with open(STATS) as stats:
@@ -49,6 +50,10 @@ async def on_message(message):
     if message.content == "WHAT IS IT?!":
         embed = discord.Embed(title="A HUNTER DESTROYER MACHINE")
         embed.set_image(url="https://vignette.wikia.nocookie.net/zimwiki/images/1/19/Hunter_Destroyer_Machine.png/revision/latest/scale-to-width-down/340?cb=20130307023703")
+        await message.channel.send(embed=embed)
+    if message.content == "Plain, Simple, Garak.":
+        embed=discord.Embed(title="A Simple Tailor")
+        embed.set_image(url=URL+"Garak.jpg")
         await message.channel.send(embed=embed)
     await client.process_commands(message)
 

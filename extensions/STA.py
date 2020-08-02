@@ -6,6 +6,7 @@ load_dotenv()
 
 STATS = os.getenv('STA_STATS')
 GSTATS = os.getenv('GAME_STATS')
+URL=os.getenv('URL_PATH')
 
 class STA(commands.Cog):
     def __init__(self, bot):
@@ -28,7 +29,7 @@ class STA(commands.Cog):
         attributes = current["Attributes"]
         disciplines = current["Disciplines"]
 
-        embed.set_author(name = player, icon_url="https://jcboysha.com/STA/Commbadge.png")
+        embed.set_author(name = player, icon_url=URL+"Commbadge.png")
         embed.add_field(name="Stress", value = pstats["Stress"], inline=True)
         embed.add_field(name="Determination", value=pstats["Determination"], inline=True)
         embed.add_field(name="Attributes", value="---", inline=False)
@@ -309,16 +310,16 @@ class STA(commands.Cog):
             embed.add_field(name="Momentum: ", value=momentum, inline=True)
             await self.gameStats(ctx, op="add", stat="Momentum", value=momentum, send=False)
         if success: 
-            embed.set_image(url="https://jcboysha.com/STA/Green-alert.gif")
+            embed.set_image(url=URL+"Green-alert.gif")
         if success and complications:
-            embed.set_image(url="https://jcboysha.com/STA/Yellow-alert.gif")
+            embed.set_image(url=URL+"Yellow-alert.gif")
         if not success: 
-            embed.set_image(url="https://jcboysha.com/STA/Red-alert.gif")
+            embed.set_image(url=URL+"Red-alert.gif")
 
         await ctx.send(embed=embed)
 
     @commands.command(name="GMChallenge", help="Undertake a challenge. <more> \n usage: Challenge <Attribute> <Attribute Score> <Discipline> <Disciplne Score> <Difficulty> <dice pool>")
-    async def challenge(self, ctx, attribute: str, attr: int, discipline: str, disc: int, target: int, dicePool: int):    
+    async def GMchallenge(self, ctx, attribute: str, attr: int, discipline: str, disc: int, target: int, dicePool: int):    
         challengeValue = int(attr) + int(disc)
         
         # Success, Complication
@@ -377,11 +378,11 @@ class STA(commands.Cog):
             embed.add_field(name="Threat: ", value=Threat, inline=True)
             await self.gameStats(ctx, op="add", stat="Threat", value=Threat, send=False)
         if success: 
-            embed.set_image(url="https://jcboysha.com/STA/Green-alert.gif")
+            embed.set_image(url=URL+"Green-alert.gif")
         if success and complications:
-            embed.set_image(url="https://jcboysha.com/STA/Yellow-alert.gif")
+            embed.set_image(url=URL+"Yellow-alert.gif")
         if not success: 
-            embed.set_image(url="https://jcboysha.com/STA/Red-alert.gif")
+            embed.set_image(url=URL+"Red-alert.gif")
 
         await ctx.send(embed=embed)
 
