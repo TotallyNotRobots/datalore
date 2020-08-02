@@ -101,6 +101,10 @@ def setenv(URL, TOKEN, COMMCHAR):
         with fileinput.FileInput('.env', inplace=True, backup='.bak') as file:
             for line in file:            
                 print(line.replace('<##URL##>', URL), end='')
+    else: 
+        with fileinput.FileInput('.env', inplace=True, backup='.bak') as file:
+            for line in file:            
+                print(line.replace('<##URL##>', ""), end='')
     with fileinput.FileInput('.env', inplace=True, backup='.bak') as file:
         for line in file:            
             print(line.replace('<##COMMCHAR##>', COMMCHAR), end='')
