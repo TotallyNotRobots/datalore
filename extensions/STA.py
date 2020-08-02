@@ -49,6 +49,36 @@ class STA(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    @commands.command(name="dmg", help="Roll Damage.")
+    async def damage(self, ctx, dicePool:int):
+        rolls = []
+        dmg = 0
+        fx = 0
+        for i in range(0, dicePool):
+            rolls.append(random.randint(1,7))
+        
+        for roll in rolls: 
+            if roll == 1:
+                dmg +=1
+            elif roll == 2:
+                dmg += 2
+            elif roll == 5:
+                dmg += 1
+                fx += 1
+            elif roll == 6:
+                dmg += 1
+                fx += 1
+        
+        embed=discord.Embed(
+            title="Damage Result",
+            colour = discord.Colour.magenta()
+        )
+        embed.add_field(name="Damage: ", value=dmg)
+        embed.add_field(name="Effects: ", value=fx)
+        embed.add_field(name="Rolls: ", value=str(rolls), inline=False)
+
+        await ctx.send(embed=embed)
+
     @commands.command(name="game_stats", help="View and Modify current Game Stats")
     async def gameStats(self, ctx, op="get", stat=None, value=0, send=True, color=discord.Colour.gold()):
         try:
@@ -232,8 +262,8 @@ class STA(commands.Cog):
             
         await self.player_embed(ctx)
 
-    @commands.command(name="Challenge", help="Undertake a challenge. <more> \n usage: Challenge <Attribute> <Discipline> <Difficulty> <dice pool>")
-    async def challenge(self, ctx, attribute: str, discipline: str, target: int, dicePool: int):
+    @commands.command(name="Challenge", help="Undertake a challenge. <more> \n usage: Challenge <Attribute> <Discipline> <Difficulty> <dice pool> <Focus>")
+    async def challenge(self, ctx, attribute: str, discipline: str, target: int, dicePool: int, focus=False):
         pstats = {}
         player = ctx.author.name
         with open(STATS) as stats: 
@@ -269,8 +299,9 @@ class STA(commands.Cog):
                 scores[1] += 1
             if roll < challengeValue:
                 scores[0] += 1
-            if roll < disc:
-                scores[0] += 1
+            if focus:
+                if roll < disc:
+                    scores[0] += 1
 
         if scores[0] >= target:
             success = True
@@ -318,8 +349,8 @@ class STA(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(name="GMChallenge", help="Undertake a challenge. <more> \n usage: Challenge <Attribute> <Attribute Score> <Discipline> <Disciplne Score> <Difficulty> <dice pool>")
-    async def GMchallenge(self, ctx, attribute: str, attr: int, discipline: str, disc: int, target: int, dicePool: int):    
+    @commands.command(name="GMChallenge", help="Undertake a challenge. <more> \n usage: Challenge <Attribute> <Attribute Score> <Discipline> <Disciplne Score> <Difficulty> <dice pool> <focus>")
+    async def GMchallenge(self, ctx, attribute: str, attr: int, discipline: str, disc: int, target: int, dicePool: int, focus=False):    
         challengeValue = int(attr) + int(disc)
         
         # Success, Complication
@@ -337,8 +368,9 @@ class STA(commands.Cog):
                 scores[1] += 1
             if roll < challengeValue:
                 scores[0] += 1
-            if roll < disc:
-                scores[0] += 1
+            if focus:
+                if roll < disc:
+                    scores[0] += 1
 
         if scores[0] >= target:
             success = True
