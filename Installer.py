@@ -17,7 +17,16 @@ Installer - The Installer for the Datalore Discord bot
     along with Datalore.  If not, see <https://www.gnu.org/licenses/>.
 '''
 
-import os, json, fileinput
+import os, json, fileinput, pip
+
+def import_or_install(package_list):
+    for package in package_list:
+        try:
+            __import__(package)
+        except ImportError:
+            pip.main(['install', package])
+
+import_or_install(os, discord, csv, random, asyncio, json, dotenv)
 
 print("Welcome to the Datalore installer! I am here to help you get configured.")
 print("At any point you can respond to a question with a capital 'Q' to quit.")
