@@ -1,5 +1,5 @@
 '''
-bot.py - the brains behind Datalore
+bot.py - the brains behind Datalore.
 (C) 2020 J.C. Boysha
     This file is part of Datalore.
 
