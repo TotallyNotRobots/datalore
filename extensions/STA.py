@@ -170,7 +170,7 @@ class STA(commands.Cog):
         await self.player_embed(ctx)
 
     @commands.command(name="set_stats", help="sets various player stats.")
-    async def setStat(ctx, stat: str, op: str, value: int):
+    async def setStat(self, ctx, stat: str, op: str, value: int):
         setStats = {}
         with open(STATS, "r") as stats:
             player = ctx.message.author.name
@@ -219,24 +219,6 @@ class STA(commands.Cog):
             await self.player_embed(ctx)
         except: 
             await ctx.send("There was an issue processing. Check that " + str(stat) + " is a valid attribute.")
-    
-    @commands.command(name="set_disc", help="sets player discipline to value.")
-    async def addFocus(self, ctx, disc: str, value: int):
-        setStats = {}               
-        with open(STATS, "r") as stats:
-            pstats = json.load(stats)
-            setStats = pstats[ctx.message.author.name]
-        
-        try: 
-            pstats[ctx.message.author.name]["Disciplines"][disc] = value
-
-            setStats = pstats
-            with open(STATS, "w") as stats:
-                json.dump(pstats, stats)
-
-            await self.player_embed(ctx)
-        except: 
-            await ctx.send("There was an issue processing. Check that " + str(disc) + " is a valid discipline.")
 
     @commands.command(name="set_disc", help="sets player discipline to value.")
     async def setDisc(self, ctx, disc: str, value: int):
