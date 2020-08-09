@@ -46,8 +46,10 @@ class STA(commands.Cog):
         current = pstats
         attributes = current["Attributes"]
         disciplines = current["Disciplines"]
-        if URL is not None:
+        if URL is not None or URL is not "":
             embed.set_author(name = player, icon_url=URL+"Commbadge.png")
+        else:
+            embed.set_author(name = player)
         embed.add_field(name="Stress", value = pstats["Stress"], inline=True)
         embed.add_field(name="Determination", value=pstats["Determination"], inline=True)
         embed.add_field(name="Attributes", value="---", inline=False)
@@ -217,6 +219,24 @@ class STA(commands.Cog):
             await self.player_embed(ctx)
         except: 
             await ctx.send("There was an issue processing. Check that " + str(stat) + " is a valid attribute.")
+    
+    @commands.command(name="set_disc", help="sets player discipline to value.")
+    async def addFocus(self, ctx, disc: str, value: int):
+        setStats = {}               
+        with open(STATS, "r") as stats:
+            pstats = json.load(stats)
+            setStats = pstats[ctx.message.author.name]
+        
+        try: 
+            pstats[ctx.message.author.name]["Disciplines"][disc] = value
+
+            setStats = pstats
+            with open(STATS, "w") as stats:
+                json.dump(pstats, stats)
+
+            await self.player_embed(ctx)
+        except: 
+            await ctx.send("There was an issue processing. Check that " + str(disc) + " is a valid discipline.")
 
     @commands.command(name="set_disc", help="sets player discipline to value.")
     async def setDisc(self, ctx, disc: str, value: int):

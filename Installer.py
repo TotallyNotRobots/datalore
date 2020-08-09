@@ -85,6 +85,11 @@ def getURL():
             else:
                 print("Please respond yes, or no.")
             continue
+        elif resp[0].lower() == "n":
+            print("You will need to host the images on a server if you would like to use them.\
+                These images are provided in the imgs folder.\n\
+                    The images also need to be hosted on an SSL connection.")
+            return ""
     exit() 
 
 def getCommandChar():
