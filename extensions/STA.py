@@ -46,7 +46,7 @@ class STA(commands.Cog):
         current = pstats
         attributes = current["Attributes"]
         disciplines = current["Disciplines"]
-        if URL is not None or URL is not "":
+        if URL is not None and URL is not "":
             embed.set_author(name = player, icon_url=URL+"Commbadge.png")
         else:
             embed.set_author(name = player)
@@ -361,13 +361,13 @@ class STA(commands.Cog):
             embed.add_field(name="Momentum: ", value=momentum, inline=True)
             await self.gameStats(ctx, op="add", stat="Momentum", value=momentum, send=False)
         if success: 
-            if URL is not None:
+            if URL is not None and URL is not "":
                 embed.set_image(url=URL+"Green-alert.gif")
         if success and complications:
-            if URL is not None:
+            if URL is not None and URL is not "":
                 embed.set_image(url=URL+"Yellow-alert.gif")
         if not success: 
-            if URL is not None:
+            if URL is not None and URL is not "":
                 embed.set_image(url=URL+"Red-alert.gif")
 
         await ctx.send(embed=embed)
@@ -433,13 +433,13 @@ class STA(commands.Cog):
             embed.add_field(name="Threat: ", value=Threat, inline=True)
             await self.gameStats(ctx, op="add", stat="Threat", value=Threat, send=False)
         if success: 
-            if URL is not None:
+            if URL is not None and URL is not "":
                 embed.set_image(url=URL+"Green-alert.gif")
         if success and complications:
-            if URL is not None:
+            if URL is not None and URL is not "":
                 embed.set_image(url=URL+"Yellow-alert.gif")
         if not success: 
-            if URL is not None:
+            if URL is not None and URL is not "":
                 embed.set_image(url=URL+"Red-alert.gif")
 
         await ctx.send(embed=embed)
