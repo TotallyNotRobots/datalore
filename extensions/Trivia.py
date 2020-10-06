@@ -45,7 +45,7 @@ class Trivia(commands.Cog):
         player = ctx.message.author.name
         scoreset = {}
 
-        response = "Answer the Question in 15 seconds!"
+        response = "Answer the Question in 30 seconds!"
         await ctx.message.channel.send(response)
 
         with open(TRIVIA, encoding="utf-8") as questions:
@@ -72,7 +72,7 @@ class Trivia(commands.Cog):
                 scoreset[player]["High Score"] = 0
 
         try:
-            guess = await self.bot.wait_for('message', check=check, timeout=15.0)
+            guess = await self.bot.wait_for('message', check=check, timeout=30.0)
 
         except asyncio.TimeoutError:
             if pscore > phighscore:
