@@ -2,3 +2,6 @@
 .idea/
 __pycache__/
 *.py[co]
+data/Scores.json
+data/GStats.*.json
+data/Stats.json
