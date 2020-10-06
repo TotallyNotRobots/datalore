@@ -6,8 +6,8 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-discord = "*"
-python-dotenv = "*"
+"discord.py" = "~=1.5.0"
+python-dotenv = "~=0.14.0"
 
 [requires]
 python_version = "3.6"

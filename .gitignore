@@ -5,3 +5,4 @@ __pycache__/
 data/Scores.json
 data/GStats.*.json
 data/Stats.json
+.env
