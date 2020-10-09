@@ -1,4 +1,4 @@
-'''
+"""
 bot.py - the brains behind Datalore.
 (C) 2020 J.C. Boysha
     This file is part of Datalore.
@@ -15,23 +15,32 @@ bot.py - the brains behind Datalore.
 
     You should have received a copy of the GNU General Public License
     along with Datalore.  If not, see <https://www.gnu.org/licenses/>.
-'''
-import os, discord, json
-from dotenv import load_dotenv
+"""
+import json
+import os
+
+import discord
 from discord.ext import commands
+from dotenv import load_dotenv
+
+IMG_URL = (
+    "https://vignette.wikia.nocookie.net/zimwiki/images/1/19/"
+    "Hunter_Destroyer_Machine.png/revision/latest/"
+    "scale-to-width-down/340?cb=20130307023703"
+)
 
 load_dotenv()
 
 
-STATS = os.getenv('STA_STATS')
-GSTATS = os.getenv('GAME_STATS')
-SCORES = os.getenv('SCORES')
-URL = os.getenv('URL_PATH')
+STATS = os.getenv("STA_STATS")
+GSTATS = os.getenv("GAME_STATS")
+SCORES = os.getenv("SCORES")
+URL = os.getenv("URL_PATH")
 
-try: 
+try:
     with open(STATS) as stats:
         json.load(stats)
-except: 
+except:
     setStats = {}
     with open(STATS, "w") as stats:
         json.dump(setStats, stats)
@@ -39,38 +48,43 @@ except:
 try:
     with open(SCORES) as stats:
         json.load(stats)
-except: 
+except:
     setStats = {}
     with open(SCORES, "w") as stats:
         json.dump(setStats, stats)
-        
 
-TOKEN = os.getenv('DISCORD_TOKEN')
-client = commands.Bot(command_prefix = os.getenv('COMMAND_PREFIX'))
 
-@client.command
-async def load(ctx, extension):
-    client.load_extension(f'extensions.{extension}')
+TOKEN = os.getenv("DISCORD_TOKEN")
+client = commands.Bot(command_prefix=os.getenv("COMMAND_PREFIX"))
+
 
 @client.command
-async def unload(ctx, extension):
-    client.unload_extension(f'extensions.{extension}')
+async def load(extension):
+    client.load_extension(f"extensions.{extension}")
 
-for filename in os.listdir('extensions'):
-    if filename.endswith('.py'):
-        client.load_extension(f'extensions.{filename[:-3]}')
+
+@client.command
+async def unload(extension):
+    client.unload_extension(f"extensions.{extension}")
+
+
+for filename in os.listdir("extensions"):
+    if filename.endswith(".py") and not filename.startswith("__"):
+        client.load_extension(f"extensions.{filename[:-3]}")
+
 
 @client.event
 async def on_message(message):
     if URL is not None:
         if message.content == "WHAT IS IT?!":
             embed = discord.Embed(title="A HUNTER DESTROYER MACHINE")
-            embed.set_image(url="https://vignette.wikia.nocookie.net/zimwiki/images/1/19/Hunter_Destroyer_Machine.png/revision/latest/scale-to-width-down/340?cb=20130307023703")
+            embed.set_image(url=IMG_URL)
             await message.channel.send(embed=embed)
         if message.content == "Plain, Simple, Garak.":
-            embed=discord.Embed(title="A Simple Tailor")
-            embed.set_image(url=URL+"Garak.jpg")
+            embed = discord.Embed(title="A Simple Tailor")
+            embed.set_image(url=URL + "Garak.jpg")
             await message.channel.send(embed=embed)
         await client.process_commands(message)
+
 
 client.run(TOKEN)
