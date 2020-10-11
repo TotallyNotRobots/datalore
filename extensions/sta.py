@@ -79,7 +79,7 @@ class Character(db.Base):
         :param name: Attribute name
         :param value: Value to set
         """
-        setattr(self, "attr_" + name.lower(), value)
+        setattr(self, f"attr_{name.lower()}", value)
 
     def get_attribute(self, name: str) -> int:
         """
@@ -88,7 +88,7 @@ class Character(db.Base):
         :param name: Attribute name
         :return: The attribute's value
         """
-        return cast(int, getattr(self, "attr_" + name.lower()))
+        return cast(int, getattr(self, f"attr_{name.lower()}"))
 
     def set_discipline(self, name: str, value: int) -> None:
         """
@@ -96,7 +96,7 @@ class Character(db.Base):
         :param name: Discipline name
         :param value: Value to set
         """
-        setattr(self, "disc_" + name.lower(), value)
+        setattr(self, f"disc_{name.lower()}", value)
 
     def get_discipline(self, name: str) -> int:
         """
@@ -105,7 +105,7 @@ class Character(db.Base):
         :param name: Discipline name
         :return: Discipline value
         """
-        return cast(int, getattr(self, "disc_" + name.lower()))
+        return cast(int, getattr(self, f"disc_{name.lower()}"))
 
 
 # noinspection PyUnusedName
@@ -137,6 +137,26 @@ class GameState(db.Base):
             session.commit(state)
 
         return cast(GameState, state)
+
+    def add_momentum(self, momentum: int) -> None:
+        self.momentum = min(self.momentum + momentum, 6)
+
+    def add_threat(self, threat: int) -> None:
+        self.threat = min(self.threat + threat, 10)
+
+    def sub_threat(self, diff: int = 1) -> bool:
+        if self.threat < diff:
+            return False
+
+        self.threat -= diff
+        return True
+
+    def sub_momentum(self, diff: int = 1) -> bool:
+        if self.momentum < diff:
+            return False
+
+        self.momentum -= diff
+        return True
 
 
 class ChallengeRoll:
@@ -360,7 +380,7 @@ class STA(commands.Cog):
             value = getattr(state, stat.lower())
             setattr(state, stat.lower(), value + diff)
         except AttributeError:
-            await ctx.send("Bad stat: " + stat)
+            await ctx.send(f"Bad stat: {stat}")
             return
 
         if send:
@@ -421,7 +441,7 @@ class STA(commands.Cog):
             elif subcmd == "sub":
                 change = -value
             else:
-                await ctx.send("Bad operation: " + subcmd)
+                await ctx.send(f"Bad operation: {subcmd}")
                 return
 
             if stat_lower in ["det", "determination"]:
@@ -439,7 +459,7 @@ class STA(commands.Cog):
         try:
             character.set_attribute(stat, value)
         except AttributeError:
-            await ctx.send("Unknown attribute: " + stat)
+            await ctx.send(f"Unknown attribute: {stat}")
             return
 
         db.Session().commit()
@@ -452,7 +472,7 @@ class STA(commands.Cog):
         try:
             character.set_discipline(disc, value)
         except AttributeError:
-            await ctx.send("Unknown discipline: " + disc)
+            await ctx.send(f"Unknown discipline: {disc}")
             return
 
         db.Session().commit()
@@ -558,9 +578,7 @@ class STA(commands.Cog):
         if roll.successes > difficulty:
             momentum = roll.successes - difficulty
             embed.add_field(name="Momentum: ", value=f"+{momentum}")
-            await self.set_game_stat(
-                ctx, stat="Momentum", diff=momentum, send=False
-            )
+            GameState.get(ctx.channel).add_momentum(momentum)
 
         file = roll.get_img()
 
@@ -602,7 +620,7 @@ class STA(commands.Cog):
         if roll.successes > difficulty:
             threat = roll.successes - difficulty
             embed.add_field(name="Threat: ", value=str(threat))
-            GameState.get(ctx.channel.name).threat = threat
+            GameState.get(ctx.channel.name).add_threat(threat)
 
         db.Session().commit()
 
@@ -654,7 +672,7 @@ def init_db() -> None:
     if session.query(GameState).count() <= 0 and game_stats_file_prefix:
         game_stats_file = Path(game_stats_file_prefix)
         game_stats_files = list(
-            game_stats_file.parent.rglob(game_stats_file.name + "*.json")
+            game_stats_file.parent.rglob(f"{game_stats_file.name}*.json")
         )
 
         for path in game_stats_files:
