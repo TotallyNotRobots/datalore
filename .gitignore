@@ -6,3 +6,6 @@ data/Scores.json
 data/GStats.*.json
 data/Stats.json
 .env
+
+# Local database file
+*.db

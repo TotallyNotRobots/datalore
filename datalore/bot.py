@@ -16,75 +16,99 @@ bot.py - the brains behind Datalore.
     You should have received a copy of the GNU General Public License
     along with Datalore.  If not, see <https://www.gnu.org/licenses/>.
 """
-import json
+import logging
+import logging.config
 import os
+from pathlib import Path
 
-import discord
 from discord.ext import commands
-from dotenv import load_dotenv
 
-IMG_URL = (
-    "https://vignette.wikia.nocookie.net/zimwiki/images/1/19/"
-    "Hunter_Destroyer_Machine.png/revision/latest/"
-    "scale-to-width-down/340?cb=20130307023703"
+from datalore import db
+
+
+def configure_loggers() -> None:
+    log_dir = Path("logs")
+    log_dir.mkdir(parents=True, exist_ok=True)
+
+    logging.captureWarnings(True)
+
+    logger_names = ["datalore", "extensions", "discord", "asyncio"]
+
+    dict_config = {
+        "version": 1,
+        "formatters": {
+            "brief": {
+                "format": "[%(asctime)s] [%(levelname)s] %(message)s",
+                "datefmt": "%H:%M:%S",
+            },
+            "full": {
+                "format": "[%(asctime)s] [%(levelname)s] %(message)s",
+                "datefmt": "%Y-%m-%d][%H:%M:%S",
+            },
+        },
+        "handlers": {
+            "console": {
+                "class": "logging.StreamHandler",
+                "formatter": "brief",
+                "level": "INFO",
+                "stream": "ext://sys.stdout",
+            },
+            "file": {
+                "class": "logging.handlers.RotatingFileHandler",
+                "maxBytes": 1000000,
+                "backupCount": 5,
+                "formatter": "full",
+                "level": "INFO",
+                "encoding": "utf-8",
+                "filename": (log_dir / "bot.log"),
+            },
+        },
+        "loggers": {
+            name: {"level": "DEBUG", "handlers": ["console", "file"]}
+            for name in logger_names
+        },
+    }
+
+    logging.config.dictConfig(dict_config)
+
+
+configure_loggers()
+
+log = logging.getLogger(__name__)
+
+client = commands.Bot(
+    command_prefix=os.getenv("COMMAND_PREFIX", "!"), case_insensitive=True
 )
-
-load_dotenv()
-
-
-STATS = os.getenv("STA_STATS")
-GSTATS = os.getenv("GAME_STATS")
-SCORES = os.getenv("SCORES")
-URL = os.getenv("URL_PATH")
-
-try:
-    with open(STATS) as stats:
-        json.load(stats)
-except:
-    setStats = {}
-    with open(STATS, "w") as stats:
-        json.dump(setStats, stats)
-
-try:
-    with open(SCORES) as stats:
-        json.load(stats)
-except:
-    setStats = {}
-    with open(SCORES, "w") as stats:
-        json.dump(setStats, stats)
-
-
-TOKEN = os.getenv("DISCORD_TOKEN")
-client = commands.Bot(command_prefix=os.getenv("COMMAND_PREFIX"))
 
 
 @client.command
-async def load(extension):
+async def load(extension: str) -> None:
     client.load_extension(f"extensions.{extension}")
 
 
 @client.command
-async def unload(extension):
+async def unload(extension: str) -> None:
     client.unload_extension(f"extensions.{extension}")
 
 
-for filename in os.listdir("extensions"):
-    if filename.endswith(".py") and not filename.startswith("__"):
-        client.load_extension(f"extensions.{filename[:-3]}")
+def load_extensions() -> None:
+    for filename in os.listdir("extensions"):
+        if filename.endswith(".py") and not filename.startswith("__"):
+            client.load_extension(f"extensions.{filename[:-3]}")
+            db.metadata.create_all(bind=db.engine)
 
 
-@client.event
-async def on_message(message):
-    if URL is not None:
-        if message.content == "WHAT IS IT?!":
-            embed = discord.Embed(title="A HUNTER DESTROYER MACHINE")
-            embed.set_image(url=IMG_URL)
-            await message.channel.send(embed=embed)
-        if message.content == "Plain, Simple, Garak.":
-            embed = discord.Embed(title="A Simple Tailor")
-            embed.set_image(url=URL + "Garak.jpg")
-            await message.channel.send(embed=embed)
-        await client.process_commands(message)
+def run_bot() -> None:
+    client.run(os.environ["DISCORD_TOKEN"])
 
 
-client.run(TOKEN)
+def main() -> None:
+    log.info("Loading extensions...")
+    load_extensions()
+    log.info("Extensions loaded.")
+    log.info("Starting bot...")
+    run_bot()
+
+
+if __name__ == "__main__":
+    main()

@@ -1,5 +1,5 @@
 # DataLore
-DataLore is a Discord Bot built specifically for Star Trek focused Discord servers. Although it does have potential to be used in other arenas. Datalore is licensed under the GPL V3. 
+DataLore is a Discord Bot built specifically for Star Trek focused Discord servers. Although it does have potential to be used in other arenas. Datalore is licensed under the GPL V3.
 
 ## Features
 - Commands for playing Star Trek Adventures
@@ -9,7 +9,7 @@ DataLore is a Discord Bot built specifically for Star Trek focused Discord serve
 I debated about this for awhile, and I decided to release the code for self-hosting. I believe this is a good solution for 2 reasons:
 1) Self-Hosting is super satisfying once you get it all working
 2) With the way Discord bots work, you could host it on a Raspberry Pi connected to a 4G connection if you wanted to
-3) Providing a Bot As A Service (BAAS) comes with some risks that I, frankly, just didn't want to take 
+3) Providing a Bot As A Service (BAAS) comes with some risks that I, frankly, just didn't want to take
 
 ## Installation and Configuration
 The app can be installed and configured by using the Installer.py interactive installer by running `python3 Installer.py`
