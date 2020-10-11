@@ -1,0 +1,1507 @@
+---
+- !question
+  question: Who was William Riker's Father?
+  answer: Kyle Riker
+  options:
+  - Thomas Riker
+  - Bryan Riker
+  - David Riker
+- !question
+  question: What legendary forest was Worf in when he told Q he was not a "merry man"?
+  answer: Sherwood Forest
+  options:
+  - Black Forest
+  - Mirkwood Forest
+  - Forbidden Forest
+- !question
+  question: Which Enterprise officer was almost collected by Kivas Fajo?
+  answer: Data
+  options:
+  - Worf
+  - Tasha Yar
+  - Mott
+- !question
+  question: Which two houses began a Klingon civil war?
+  answer: Duras and Gowron
+  options:
+  - Mogh and Kahless
+  - Duras and Khitomer
+  - Darmok and Jalad
+- !question
+  question: How was Geordi LaForge able to uncover cloaked Romulan ships?
+  answer: Tachyon Detection
+  options:
+  - Barion Detection
+  - Thermion Detection
+  - Graviton Detection
+- !question
+  question: Which officer did Picard put in Command of the USS Sutherland (to the dismay of its first officer)
+  answer: Data
+  options:
+  - Tasha Yar
+  - William Riker
+  - Wesley Crusher
+- !question
+  question: Which comedienne and singing nun joined the Enterprise D crew as the El Aurian Bartender Guinan?
+  answer: Whoopie Goldberg
+  options:
+  - Marie Deckers
+  - Denise Crosby
+  - Nichelle Nichols
+- !question
+  question: Which colony's destruction lead to the Battle of Wolf 359?
+  answer: New Providence
+  options:
+  - Old Providence
+  - Providence Plantation
+  - New Rhode Island
+- !question
+  question: What name did Cmdr. Riker's transporter duplicate take for himself?
+  answer: Tom Riker
+  options:
+  - Kyle Riker
+  - Bill Riker
+  - Dick Riker
+- !question
+  question: Who is the guardian of the Klingon Underworld?
+  answer: Fek'lhr
+  options:
+  - K'eylar
+  - Kahless
+  - Martok
+- !question
+  question: What disease affected Ambassador Sarek leading to lost control of his emotions?
+  answer: Bendii Syndrome
+  options:
+  - Shalof Syndrome
+  - Panar Syndrome
+  - Braklul Syndrome
+- !question
+  question: Geordi La Forge built a sailing ship model of which ship for a former captain?
+  answer: HMS Victory
+  options:
+  - USS Enterprise
+  - USS Tiananman
+  - USS Rutherford
+- !question
+  question: Who did Data call "Brother"?
+  answer: Lore
+  options:
+  - Legend
+  - Myth
+  - Dahj
+- !question
+  question: Where was the Enterprise when the Cytherian probe attempted to take over the computer?
+  answer: Argus Array
+  options:
+  - Wolf 359
+  - Deep Space K-7
+  - Caretaker's Array
+- !question
+  question: The Eternal being in the form of Douwd Uxbridge accidentally annhilated which species?
+  answer: Husnock
+  options:
+  - Vulcans
+  - Bajorans
+  - Ocampa
+- !question
+  question: This Romulan spy posing as a Vulcan ambassador was NOT killed in a transporter incident
+  answer: T'Pel
+  options:
+  - T'Pring
+  - T'Pau
+  - T'Pol
+- !question
+  question: The Enterprise-D encountered what dark matter nebula?
+  answer: Mar Oscura
+  options:
+  - Mal Obscura
+  - Schwarz Augen
+  - Dunkel Heit
+- !question
+  question: Tyken's Rift trapped which Starfleet vessel?
+  answer: USS Brattain
+  options:
+  - USS Britain
+  - USS Bryton
+  - USS Brighton
+- !question
+  question: 'T/F: The Enterprise-D is a Galor class ship'
+  answer: 'FALSE'
+  options:
+  - 'TRUE'
+  - N/A
+  - N/A
+- !question
+  question: This time traveler was not from the future as he claimed but instead the past?
+  answer: Berlinghoff Rasmussen
+  options:
+  - Frankfurter Rasputin
+  - Krenim Annorax
+  - Crewman Daniels
+- !question
+  question: Lore influenced Hugh to attack which planet?
+  answer: Ohinaka III
+  options:
+  - Okara 5
+  - Orion 4
+  - Khitomer
+- !question
+  question: Wesley Crusher teams up with what entity setting us up for the spinoff we never received?
+  answer: The Traveler
+  options:
+  - The Doctor
+  - The Explorer
+  - The Wanderer
+- !question
+  question: In Q's Anti-time future the Klingons have conquered which Beta Quadrant Empire?
+  answer: Romulan
+  options:
+  - Cardassian
+  - Organian
+  - Borg
+- !question
+  question: This syndrome is caused by an abnormality in Picard's Parietal lobe and affects him in "All Good things…"?
+  answer: Irumodic Syndrome
+  options:
+  - Bendii Syndrome
+  - Panar Syndrome
+  - Braklul Syndrome
+- !question
+  question: Which Picard commanded the USS Pasteur?
+  answer: Beverly
+  options:
+  - Renee
+  - Jean-Luc
+  - Robert
+- !question
+  question: Which archaeologist from both TNG and DS9 ultimately left Picard for Q?
+  answer: Vash
+  options:
+  - Indy
+  - Daren
+  - Bev
+- !question
+  question: When environmental concerns for subspace arose from Warp engines what speed limit did most species adopt?
+  answer: Warp 5
+  options:
+  - Warp 10
+  - Trans-warp
+  - Warp 2
+- !question
+  question: Which Romulan appeared 4 times on TNG as a Romulan a Hologram and in an alternate timeline?
+  answer: Tomalak
+  options:
+  - Sela
+  - Bretal
+  - Donatru
+- !question
+  question: Which Starfleet Engineer did Geordi have crush on so hard he made a hologram?
+  answer: Dr. Leah Brahms
+  options:
+  - Dr. Laura Beethoven
+  - Dr. Mary Chopin
+  - Dr.  Leanne Bach
+- !question
+  question: '_______ of Borg was supposed to be an interface between the Queen and Humanity. '
+  answer: Locutus
+  options:
+  - Seven of Nine
+  - Loquatious
+  - Locust
+- !question
+  question: What omnipotent being played by John DeLancie was the "judge" of humanity?
+  answer: Q
+  options:
+  - Y
+  - X
+  - Z
+- !question
+  question: What type of Android was Data
+  answer: Soong
+  options:
+  - Lollipop
+  - Marshmellow
+  - Song
+- !question
+  question: This drink was called a "Warrior's Drink" by Worf?
+  answer: Prune Juice
+  options:
+  - Apple Juice
+  - Banana Milk
+  - Coffee
+- !question
+  question: Critical to the survival of the ship what kind of field kept Matter and Anti-matter separate?
+  answer: Magnetic
+  options:
+  - Positronic
+  - Isolinear
+  - Neurogenic
+- !question
+  question: Riker fought until he was in command of which Klingon Vessel as part of an Officer Exchange program?
+  answer: I.K.S. Pagh
+  options:
+  - I.K.S. Bortas
+  - I.K.S. Boreth
+  - I.K.S Fek'lhr
+- !question
+  question: Noonien Soong constructed Data on which planet which was ultimately attacked by the Crystalline Entity?
+  answer: Omicron Theta
+  options:
+  - Pi Sigma
+  - Chi Alpha
+  - Phi Beta
+- !question
+  question: What command does Picard tell Data to disable the borg that is also misinterpreted by Dr. Crusher?
+  answer: Sleep
+  options:
+  - Kill
+  - Terminate
+  - Exhaust
+- !question
+  question: Which bearded Enterprise crew member hosted a Trill briefly to complete a negotiation?
+  answer: Will Riker
+  options:
+  - Geordi LaForge
+  - Worf
+  - Spock
+- !question
+  question: What type of propulsion could have replaced warp drive had it not almost destroyed a planet?
+  answer: Soliton wave
+  options:
+  - Chroniton wave
+  - Proton Wave
+  - Positron Wave
+- !question
+  question: What multi-pointed Klingon Sword does Worf win a tournament with?
+  answer: Bat'leth
+  options:
+  - Mek'leth
+  - GintaQ
+  - Pe'taQ
+- !question
+  question: What treaty caused an armistice between the Federation and the Sheliak
+  answer: Treaty of Armens
+  options:
+  - Organian Peace treaty
+  - Treaty of Marsailles
+  - Treaty of Barzan
+- !question
+  question: Where did the Romulan ship Pi crash?
+  answer: Galorndon Core
+  options:
+  - Galactic Core
+  - Omicron Core
+  - Ganondorf Core
+- !question
+  question: This Dax took a young Cisco under his wing.
+  answer: Curzon Dax
+  options:
+  - Ezri Dax
+  - Jadzia Dax
+  - Joran Dax
+- !question
+  question: In Gene Roddenberry's original treatment for Star Trek what was the name of the Starship?
+  answer: Yorktown
+  options:
+  - Plymouth
+  - Reliant
+  - Enterprise
+- !question
+  question: Who was the first actor to play a member of all three of the major alien races in Star Trek?
+  answer: Mark Lenard
+  options:
+  - Leonard Nimoy
+  - Christopher Lloyd
+  - Jeffrey Hunter
+- !question
+  question: What is Sulu's primary position on the U.S.S. Enterprise?
+  answer: Helmsman
+  options:
+  - Science Officer
+  - Navigator
+  - Chief Engineer
+- !question
+  question: Which Star Trek captain has an artificial heart?
+  answer: Jean-Luc Picard
+  options:
+  - Kathryn Janeway
+  - Jonathan Archer
+  - Benjamin Sisko
+- !question
+  question: Who was the first Vulcan science officer aboard the starship Enterprise?
+  answer: T'Pol
+  options:
+  - Spock
+  - Sarek
+  - Tuvok
+- !question
+  question: Which alien race did Ronald Reagan say reminded him of Congress?
+  answer: Klingons
+  options:
+  - Vulcans
+  - Ferengi
+  - Borg
+- !question
+  question: Which species was the first to discover warp drive?
+  answer: Vulcans
+  options:
+  - Humans
+  - Borg
+  - Klingons
+- !question
+  question: What Star Trek character was labeled "unknown sample" when discovered by Bajoran scientists?
+  answer: Odo
+  options:
+  - Seven of Nine
+  - Khan Noonien Singh
+  - Data
+- !question
+  question: Which Star Trek actor originally devised the Klingon language?
+  answer: James Doohan
+  options:
+  - Leonard Nimoy
+  - Michael Ansara
+  - Mark Lenard
+- !question
+  question: What character was adopted by the Vulcan ambassador Sarek?
+  answer: Michael Burnham
+  options:
+  - Sybok
+  - Spock
+  - Sylvia Tilly
+- !question
+  question: 'Who serves as communications officer in the final episode of Star Trek: The Original Series?'
+  answer: Lt. Lisa
+  options:
+  - Lt. Uhura
+  - Lt. Baldavin
+  - Lt. Rand
+- !question
+  question: What actress turned down the role of Seven of Nine four times?
+  answer: Jeri Ryan
+  options:
+  - Jolene Blalock
+  - Hudson Leick
+  - Claudia Christian
+- !question
+  question: 'What actor from Star Trek: The Original Series lost his right middle finger during World War II?'
+  answer: James Doohan
+  options:
+  - George Takei
+  - Leonard Nimoy
+  - Deforest Kelley
+- !question
+  question: What future Starfleet captain survived the Battle of Wolf 359?
+  answer: Benjamin Sisko
+  options:
+  - James T. Kirk
+  - Kathryn Janeway
+  - Jonathan Archer
+- !question
+  question: What is Lieutenant Uhura's first name?
+  answer: Nyota
+  options:
+  - Katura
+  - Efra
+  - Ayana
+- !question
+  question: What is Deanna Troi's favorite food?
+  answer: Chocolate
+  options:
+  - Uttaberries
+  - Betazed Oysters
+  - Jakarine Pudding
+- !question
+  question: What ship is Sulu assigned when he's promoted to captain?
+  answer: U.S.S. Excelsior
+  options:
+  - U.S.S. Excalibur
+  - U.S.S. Yamaguchi
+  - U.S.S. Bradbury
+- !question
+  question: 'What character dies in the series finale of Star Trek: Enterprise?'
+  answer: Trip
+  options:
+  - T'Pol
+  - Phlox
+  - Hoshi
+- !question
+  question: Which Star Trek captain suffers from androgenic alopecia?
+  answer: Jean-Luc Picard
+  options:
+  - James T. Kirk
+  - Kathryn Janeway
+  - Jonathan Archer
+- !question
+  question: Which of the following was not a founding species of the United Federation of Planets?
+  answer: Bajorans
+  options:
+  - Andorians
+  - Tellarites
+  - Vulcans
+- !question
+  question: What weapon did Kirk and Spock use when they fought for possession of T'Pring during Spock's Pon farr ritual in
+    "Amok Time"?
+  answer: Lirpa
+  options:
+  - Mortaes
+  - Kabar
+  - Mek'Leth
+- !question
+  question: Who was originally cast as Captain Janeway?
+  answer: Geneviève Bujold
+  options:
+  - Sophia Loren
+  - Judi Dench
+  - Catherine Deneuve
+- !question
+  question: Which of the following is a species of intelligent turtles?
+  answer: Rigellians
+  options:
+  - Betazoids
+  - Ktarians
+  - Ardanans
+- !question
+  question: If Edith Keeler doesn't die in "The City on the Edge of Forever" what will happen?
+  answer: The Nazis will rule the world
+  options:
+  - The timeline will unravel
+  - Captain Kirk won't be born
+  - A virus will wipe out humanity
+- !question
+  question: Which character serves as the head of security for the space station Deep Space Nine?
+  answer: Odo
+  options:
+  - Benjamin Sisko
+  - Kira Nerys
+  - Worf
+- !question
+  question: Who created the Bajoran wormhole?
+  answer: The Prophets
+  options:
+  - The Archons
+  - The Elders
+  - The Founders
+- !question
+  question: What type of weapons technology does a phaser use?
+  answer: Particle-beam
+  options:
+  - Zero-point Energy
+  - Plasma
+  - Antimatter
+- !question
+  question: 'In Star Trek: Nemesis'
+  answer: ' what did Shinzon use to assassinate the entire Romulan senate?'
+  options:
+  - Thalaron Radiation
+  - Trilithium Resin
+  - Cobalt Diselenide
+  - ' Aceton Assimilators'
+- !question
+  question: What species known to the Borg as "species 329" were deemed unworthy of assimilation?
+  answer: Kazon
+  options:
+  - Organian
+  - Klingon
+  - Tholian
+- !question
+  question: In "Mirror Mirror" what has replaced the United Federation of Planets?
+  answer: Terran Empire
+  options:
+  - Klingon-Cardassian Alliance
+  - Dominion
+  - Romulan Empire
+- !question
+  question: What was Majel Barrett's first role on Star Trek?
+  answer: Number One
+  options:
+  - M'Ress
+  - Lwaxana Troi
+  - Nurse Chapel
+- !question
+  question: What type of fish does Captain Picard keep in his ready room?
+  answer: Lionfish
+  options:
+  - Clownfish
+  - Goldfish
+  - Suckermouth Catfish
+- !question
+  question: What ST:TNG prop was designed using an automotive air filter and a hair band?
+  answer: Geordi's Visor
+  options:
+  - Positronic Brain
+  - Warp Coil
+  - Ressikan Flute
+- !question
+  question: In "Mirror Mirror" what weapon does Kirk keep concealed in his quarters?
+  answer: Tantalus Field
+  options:
+  - Trilithium Resin
+  - Metreon Cascade
+  - Aceton Assimilators
+- !question
+  question: Which of the following characters was trapped in a transporter buffer for 75 years?
+  answer: Montgomery Scott
+  options:
+  - Leonard McCoy
+  - James T. Kirk
+  - Hikaru Sulu
+- !question
+  question: 'What original Star Trek actor appeared in the pilot episode of Star Trek: The Next Generation?'
+  answer: DeForest Kelley
+  options:
+  - William Shatner
+  - Nichelle Nichols
+  - Leonard Nimoy
+- !question
+  question: What character asks Data if he is "fully functional"?
+  answer: Tasha Yar
+  options:
+  - Beverly Crusher
+  - Deanna Troi
+  - Captain Picard
+- !question
+  question: Who was the first Kelpien to enter Starfleet?
+  answer: Saru
+  options:
+  - Ash
+  - Shazad
+  - Kol
+- !question
+  question: 'What were the last words of the last episode of Star Trek: The Original Series?'
+  answer: If only...
+  options:
+  - Scotty, beam us up,
+  - Anything is possible
+  - Engage.
+- !question
+  question: Who was originally offered the role of Spock?
+  answer: Martin Landou
+  options:
+  - Dustin Hoffman
+  - Deforest Kelly
+  - Roger Moore
+- !question
+  question: What type of pet does Captain Archer have on Enterprise?
+  answer: Dog
+  options:
+  - Fish
+  - Turtle
+  - Cat
+- !question
+  question: 'What two stars of Star Trek: Deep Space Nine were married in real life in 1997?'
+  answer: Alexander Siddig and Nana Visitor
+  options:
+  - Michael Dorn and Terry Farrell
+  - Alexander Siddig and Michael Dorn
+  - Armin Shimerman and Nana Visitor
+- !question
+  question: Who was the first real astronaut to appear in any Star Trek episode?
+  answer: Mae Jemison
+  options:
+  - ' Christa McAuliffe'
+  - John Glenn
+  - Neil Armstrong
+- !question
+  question: In which Star Trek series did writer Larry Niven introduce the cat-like alien race the Kzinti into the Star Trek
+    universe?
+  answer: The Animated Series
+  options:
+  - Voyager
+  - The Original Series
+  - Enterprise
+- !question
+  question: Who was the first Star Trek actor to write a Star Trek story?
+  answer: Walter Koenig
+  options:
+  - William Shatner
+  - George Takei
+  - Leonard Nimoy
+- !question
+  question: What was Seven of Nine's name before she was assimilated by the Borg?
+  answer: Annika
+  options:
+  - Nyota
+  - B'Elanna
+  - Naomi
+- !question
+  question: Who is the youngest captain in Starfleet history?
+  answer: James T. Kirk
+  options:
+  - Christopher Pike
+  - Weley Crusher
+  - Kathryn Janeway
+- !question
+  question: What is the Klingon homeworld?
+  answer: Qo'noS
+  options:
+  - Qapla'
+  - Dhak'tah
+  - K'pekt
+- !question
+  question: According to Klingon mythology what is the place where all life began?
+  answer: Ql'tu'
+  options:
+  - Par'Mach
+  - Pu'Dah Dak Cha
+  - Quondoq
+- !question
+  question: What was the first ship James T. Kirk served on?
+  answer: U.S.S. Farragut
+  options:
+  - U.S.S. Yorktown
+  - U.S.S. Dakota
+  - U.S.S. Enterprise
+- !question
+  question: What is Mr. Chekov's first name?
+  answer: Pavel
+  options:
+  - Anton
+  - Vladimir
+  - Alexei
+- !question
+  question: What is Captain Kirk's middle name?
+  answer: Tiberius
+  options:
+  - Tyrone
+  - Tobias
+  - Titus
+- !question
+  question: Which of the following starships survived the Battle of Wolf 359?
+  answer: U.S.S. Ahwahnee
+  options:
+  - U.S.S. Saratoga
+  - U.S.S. Yamaguchi
+  - U.S.S. Melbourne
+- !question
+  question: Which Star Trek captain loves baseball?
+  answer: Benjamin Sisko
+  options:
+  - Jean-Luc Picard
+  - James T. Kirk
+  - Jonathan Archer
+- !question
+  question: Who convinced Nichelle Nichols not to leave Star Trek after the first season?
+  answer: Martin Luther King, Jr.
+  options:
+  - Lucille Ball
+  - Sidney Poitier
+  - Gene Roddenberry
+- !question
+  question: Who was Spock's mother?
+  answer: Amanda Grayson
+  options:
+  - Elizabeth Cutler
+  - Carol Marcus
+  - Naomi Wildman
+- !question
+  question: Which Star Trek series has a female Chief Engineer?
+  answer: Voyager
+  options:
+  - Deep Space Nine
+  - The Next Generation
+  - Enterprise
+- !question
+  question: What creature killed half the crew of the U.S.S. Farragut?
+  answer: Dikironium Cloud Creature
+  options:
+  - Horta
+  - Tribbles
+  - Giant Space Amoeba
+- !question
+  question: Which Chief Medical Officer is a Denobulan?
+  answer: Dr. Phlox
+  options:
+  - Dr. Bashir
+  - Dr. McCoy
+  - Dr. Crusher
+- !question
+  question: Which Star Trek captain was forced to impersonate a historical figure to preserve the timeline?
+  answer: Benjamin Sisko
+  options:
+  - Kathryn Janeway
+  - James T. Kirk
+  - Jean-Luc Picard
+- !question
+  question: What Cardassian spy had a love affair with Chakotay?
+  answer: Seska
+  options:
+  - Boheeka
+  - Marayn
+  - Siana
+- !question
+  question: Which Star Trek captain was widowed?
+  answer: Benjamin Sisko
+  options:
+  - Jonathan Archer
+  - James T. Kirk
+  - Jean-Luc Picard
+- !question
+  question: What kind of pancakes did B'Elanna Torres' grandmother make for her as a child?
+  answer: Banana
+  options:
+  - Buttermilk
+  - Blueberry
+  - Chocolate Chip
+- !question
+  question: Which Star Trek captain poisons the atmosphere of a Maquis colony to catch a traitor?
+  answer: Benjamin Sisko
+  options:
+  - Hikaru Sulu
+  - James T. Kirk
+  - Balthazar Edison
+- !question
+  question: Who is Wesley's mother?
+  answer: Beverly Crusher
+  options:
+  - Guinan
+  - Deanna Troi
+  - Tasha Yar
+- !question
+  question: Who is the Chief Medical Officer of Deep Space Nine?
+  answer: Dr. Bashir
+  options:
+  - Dr. Odo
+  - Dr. Dax
+  - Dr. Sisko
+- !question
+  question: How many different TV series have William Shatner and Leonard Nimoy appeared in together?
+  answer: Six
+  options:
+  - Nine
+  - One
+  - Two
+- !question
+  question: What elite group of cadets did Wesley Crusher join at the Academy?
+  answer: Nova Squadron
+  options:
+  - Alpha Squadron
+  - Neutron Squadron
+  - Legacy Squadron
+- !question
+  question: What Deep Space Nine character is a Trill symbiont?
+  answer: Dax
+  options:
+  - Odo
+  - Worf
+  - Quark
+- !question
+  question: Who puts Picard and the Enterprise crew on trial in "Encounter at Farpoint"?
+  answer: Q
+  options:
+  - Klingon High Council
+  - The Archons
+  - The Pah-Wraiths
+- !question
+  question: Who serves as ship's cook aboard Voyager?
+  answer: Neelix
+  options:
+  - Harry Kim
+  - B'Elanna Torres
+  - Kes
+- !question
+  question: Which former co-star had a long-standing feud with William Shatner?
+  answer: George Takei
+  options:
+  - Leonard Nimoy
+  - Nichelle Nichols
+  - James Doohan
+- !question
+  question: What character owns a bar on Deep Space Nine?
+  answer: Quark
+  options:
+  - Odo
+  - Benjamin Sisko
+  - Miles O'Brien
+- !question
+  question: Who is Data's brother?
+  answer: Lore
+  options:
+  - Grok
+  - Borg
+  - Dorn
+- !question
+  question: Whose cover version of "Lucy in the Sky with Diamonds" was voted "worst massacre of a The Beatles song ever" in
+    May 2003?
+  answer: William Shatner
+  options:
+  - Jonathan Grakes
+  - Nichelle Nichols
+  - Leonard Nimoy
+- !question
+  question: What was the name of Spock's betrothed in the episode "Amok Time"?
+  answer: T'Pring
+  options:
+  - T'Pau
+  - T'Pol
+  - T'Pok
+- !question
+  question: What is the name of Worf's son?
+  answer: Alexander
+  options:
+  - Korath
+  - Ch'Pok
+  - William
+- !question
+  question: How did Captain Kirk's brother die?
+  answer: Killed by parasites
+  options:
+  - Suicide
+  - A transporter malfunction
+  - At the battle of Wolf-359
+- !question
+  question: Which of the following is a Klingon insult?
+  answer: D'Blok
+  options:
+  - Dhak'tah
+  - Par'Mach
+  - Quee Nagah
+- !question
+  question: In "Mudd's Women" what was the name of the pill the women took to stay beautiful?
+  answer: Venus Drug
+  options:
+  - Eros Drug
+  - Eve Drug
+  - Aphrodite Drug
+- !question
+  question: What quadrant is home to the Founders?
+  answer: Gamma Quadrant
+  options:
+  - Delta Quadrant
+  - Alpha Quadrant
+  - Beta Quadrant
+- !question
+  question: In Mirror Mirror how do Kirk McCoy Scotty and Uhura end up on an alternate universe Enterprise?
+  answer: Transporter Malfunction
+  options:
+  - Wormhole
+  - Klingon Retrovirus
+  - Ancient Glowing Stone Ring
+- !question
+  question: Who was originally cast as Counselor Troi?
+  answer: Denise Crosby
+  options:
+  - Marina Sirtis
+  - Gates McFadden
+  - Majel Barrett-Roddenberry
+- !question
+  question: In "The City on the Edge of Forever" who is Dr. McCoy treating when he accidentally injects himself with an overdose
+    of cordrazine?
+  answer: Sulu
+  options:
+  - Edith Keeler
+  - Kirk
+  - Spock
+- !question
+  question: 'Who replaced Dr. Crusher in the second season of Star Trek: The Next Generation?'
+  answer: Dr. Pulaski
+  options:
+  - Dr. Bashir
+  - Dr. Marcus
+  - Dr. Phlox
+- !question
+  question: What never appears on Enterprise schematics?
+  answer: Bathrooms
+  options:
+  - Weapons Systems
+  - Turbolifts
+  - Food Replicators
+- !question
+  question: "Why did Worf's prosthetic forehead change in season 2 of Star Trek: The Next Generation"
+  answer: The original was stolen
+  options:
+  - He evolved
+  - Producers decided to "soften" the character
+  - The original took too long to apply
+- !question
+  question: In "Mirror Mirror" who tries to assassinate Captain Kirk?
+  answer: Chekov
+  options:
+  - Scotty
+  - Spock
+  - Uhura
+- !question
+  question: In "Mirror Mirror" who does Captain Kirk find waiting in his bed?
+  answer: Marlena Moreau
+  options:
+  - Carol Marcus
+  - Janice Rand
+  - Lt. Uhura
+- !question
+  question: In Klingon mythology what monster guards the gates of Gre'thor?
+  answer: Fek'lhr
+  options:
+  - Ba'el
+  - K'vagh
+  - Valkris
+- !question
+  question: 'What unproduced Gene Roddenberry series eventually became Star Trek: The Motion Picture?'
+  answer: Star Trek:Phase II
+  options:
+  - Genesis II
+  - Star Trek:The New Voyages
+  - 'Earth: Final Conflict'
+- !question
+  question: In "The City on the Edge of Forever" what organization does Edith Keeler run?
+  answer: 21st Street Mission
+  options:
+  - West Harlem Community Center
+  - The Bowery Mission
+  - St. Francis Soup Kitchen
+- !question
+  question: What actor died a month before the release of Star Trek Beyond?
+  answer: Anton Yelchin
+  options:
+  - Chris Pine
+  - Zachary Quinto
+  - Zoe Saldana
+- !question
+  question: 'Who complains of being "drafted" in Star Trek: The Motion Picture?'
+  answer: McCoy
+  options:
+  - Scotty
+  - Chekov
+  - Sulu
+- !question
+  question: What grounded Starfleet vessel does Scotty discover on the planet Altamid in Star Trek Beyond?
+  answer: U.S.S. Franklin
+  options:
+  - U.S.S. Essex
+  - U.S.S. Daedalus
+  - U.S.S. Ajax
+- !question
+  question: What do the inhabitants of Gamma Trianguli VI worship?
+  answer: A Computer
+  options:
+  - The Enterprise
+  - Dr. McCoy
+  - Klingons
+- !question
+  question: What Algerian-born actress plays Jaylah in Star Trek Beyond?
+  answer: Sofia Boutella
+  options:
+  - Zahia Dehar
+  - Amal Bouchoucha
+  - Souad Massi
+- !question
+  question: What Star Trek character answers to the nickname "Bones"?
+  answer: Leonard McCoy
+  options:
+  - Benjamin Sisko
+  - Julian Bashir
+  - Montgomery Scott
+- !question
+  question: What former transporter chief was later promoted to Chief of Operations on Deep Space Nine?
+  answer: Miles O'Brien
+  options:
+  - Odo
+  - Worf
+  - Montgomery Scott
+- !question
+  question: Which character was the Captain's yeoman aboard the U.S.S. Enterprise?
+  answer: Janice Rand
+  options:
+  - Helen Noel
+  - Carol Marcus
+  - Nyota Uhura
+- !question
+  question: Which of the following characters was an Orion slave girl on Elba II?
+  answer: Marta
+  options:
+  - Shahna
+  - Deela
+  - Miramanee
+- !question
+  question: What was the Caretaker's nickname?
+  answer: Banjo Man
+  options:
+  - Tambourine Man
+  - Guitar Man
+  - Piano Man
+- !question
+  question: What does McCoy give Kirk for his birthday in The Wrath of Khan?
+  answer: Reading glasses
+  options:
+  - A Tale of Two Cities
+  - A clean bill of health
+  - A model of the Enterprise
+- !question
+  question: What did the U.S.S. Enterprise have on Deck 21?
+  answer: Bowling Alley
+  options:
+  - Baseball Field
+  - Swimming Pool
+  - Basketball Court
+- !question
+  question: 'Who narrated the teaser trailers for Star Trek: The Motion Picture?'
+  answer: Orson Welles
+  options:
+  - James Earl Jones
+  - Walter Cronkite
+  - Boris Karloff
+- !question
+  question: Which Star Trek series did Stephen Hawking guest star on?
+  answer: The Next Generation
+  options:
+  - Enterprise
+  - Deep Space Nine
+  - Voyager
+- !question
+  question: What is the highest warp the Enterprise has reached in any Star Trek series?
+  answer: '14.1'
+  options:
+  - '6.0'
+  - '10.0'
+  - '9.9'
+- !question
+  question: "How many lens flares are there in J.J. Abrams' Star Trek: Into Darkness?"
+  answer: '826'
+  options:
+  - '62'
+  - '1'
+  - '198'
+- !question
+  question: Most female Vulcan names begin with what letter?
+  answer: T
+  options:
+  - S
+  - V
+  - K
+- !question
+  question: In what city was Spock born?
+  answer: Shi'Kahr
+  options:
+  - Vulcana
+  - Regar
+  - T'Paal
+- !question
+  question: Who is the only actor to appear in all 80 episodes of the original series?
+  answer: Leonard Nimoy
+  options:
+  - William Shatner
+  - Deforest Kelley
+  - Nichelle Nichols
+- !question
+  question: What is needed for a warp engine?
+  answer: Dilithium Crystal
+  options:
+  - Okudagram
+  - Jefferies Tube
+  - Hyperdrive Motivator
+- !question
+  question: 'How many times did Captain Kirk say "Beam me up Scotty" in Star Trek: The Original Series?'
+  answer: '0'
+  options:
+  - '7'
+  - '19'
+  - '32'
+- !question
+  question: 'Which actor received death threats after Star Trek: Generations?'
+  answer: Malcolm McDowell
+  options:
+  - Alan Ruck
+  - William Shatner
+  - Patrick Stewart
+- !question
+  question: Which Star Trek movie featured the first entirely computer generated movie sequence in cinema history?
+  answer: 'Star Trek II: The Wrath of Khan'
+  options:
+  - 'Star Trek: Generations'
+  - 'Star Trek: The Search for Spock'
+  - 'Star Trek: The Motion Picture'
+- !question
+  question: Why did network censors initially reject the character of Spock?
+  answer: He looked satanic
+  options:
+  - His lack of emotion was boring
+  - He was better looking than Kirk
+  - They didn't want aliens on the Enterprise
+- !question
+  question: 'What movie did Eddie Murphy choose to shoot instead of Star Trek: The Voyage Home?'
+  answer: The Golden Child
+  options:
+  - 48 Hrs.
+  - Beverly Hills Cop
+  - Beverly Hills Cop II
+- !question
+  question: What was the only Star Trek TV series not to feature any human female as a main character?
+  answer: Deep Space Nine
+  options:
+  - Enterprise
+  - The Original Series
+  - The Next Generation
+- !question
+  question: What is the only intoxicant served on the Enterprise-D?
+  answer: Synthenol
+  options:
+  - Budweiser
+  - Saurian Brandy
+  - Talaxian Champagne
+- !question
+  question: Who did George Takei call for Star Wars and Star Trek fans to unite against?
+  answer: Twilight Fans
+  options:
+  - Harry Potter Fans
+  - Supernatural Fans
+  - Battlestar Galactica Fans
+- !question
+  question: The Borg were originally supposed to be _______.
+  answer: Insects
+  options:
+  - Lizards
+  - A living virus
+  - Virtual beings
+- !question
+  question: What movie marked the first time Uhura was given a first name on screen?
+  answer: 'Star Trek: The Motion Picture'
+  options:
+  - 'Star Trek V: The Final Frontier'
+  - Star Trek (2009)
+  - 'Star Trek VI: The Undiscovered Country'
+- !question
+  question: How long would it take the Enterprise to cross the galaxy on impulse drive?
+  answer: 400 thousand years
+  options:
+  - 400 years
+  - 40 years
+  - 4 thousand years
+- !question
+  question: How did director J.J. Abrams teach Zachary Quinto to do the Vulcan salute?
+  answer: Glued his fingers together
+  options:
+  - Tied Fingers with fishing line
+  - Finger Exercises
+  - A two-fingered glove
+- !question
+  question: 'What line did DeForest Kelley refuse to deliver in Star Trek II: The Wrath of Khan?'
+  answer: He's dead Jim.
+  options:
+  - Dammit I'm a doctor not a...
+  - Are you out of your Vulcan mind?
+  - Where is that pointy-eared bastard?
+- !question
+  question: 'What character joined the crew in the second season of Star Trek: The Original Series?'
+  answer: Pavel Chekov
+  options:
+  - Hikaru Sulu
+  - Nyota Uhura
+  - Janice Rand
+- !question
+  question: 'In what episode of Star Trek: The Animated Series does Uhura take control of the Enterprise?'
+  answer: The Lorelei Signal
+  options:
+  - The Jihad
+  - The Survivor
+  - The Terratin Incident
+- !question
+  question: 'Which Star Trek: Enterprise crew member is allergic to his favorite food?'
+  answer: Malcolm Reed
+  options:
+  - Trip Tucker III
+  - Jonathan Archer
+  - Travis Mayweather
+- !question
+  question: At what age was Annika Hansen assimilated by the Borg?
+  answer: '6'
+  options:
+  - '24'
+  - '18'
+  - '12'
+- !question
+  question: Which Star Trek character had the Starfleet serial number 656-5827D?
+  answer: Chekov
+  options:
+  - Kirk
+  - Sulu
+  - Uhura
+- !question
+  question: Which Star Trek character was part of the Interspecies Medical Exchange?
+  answer: Dr. Phlox
+  options:
+  - Dr. McCoy
+  - Dr. Bashir
+  - ' Dr. Pulaski'
+- !question
+  question: In "The Trouble with Tribbles" which crew member brought a tribble aboard the Enterprise?
+  answer: Uhura
+  options:
+  - Sulu
+  - Scotty
+  - McCoy
+- !question
+  question: 'Which Star Trek: Enterprise crew member was capable of learning alien languages extremely quickly?'
+  answer: Hoshi Sato
+  options:
+  - Malcolm Reed
+  - Dr. Phlox
+  - T'Pol
+- !question
+  question: During the original five-year mission what deck of the Enterprise contained Dr. McCoy's quarters?
+  answer: Deck 9
+  options:
+  - Deck 23
+  - Deck 5
+  - Deck 13
+- !question
+  question: Which Star Trek character was born on Turkana IV?
+  answer: Tasha Yar
+  options:
+  - Jadzia Dax
+  - Seven of Nine
+  - Odo
+- !question
+  question: What was the name of Chekhov's imaginary brother?
+  answer: Piotr
+  options:
+  - Anton
+  - Evgeni
+  - Vlad
+- !question
+  question: Who delivered Miles O'Brien's daughter Molly?
+  answer: Worf
+  options:
+  - Wesley Crusher
+  - Beverly Crusher
+  - Julian Bashir
+- !question
+  question: Who was Dr. McCoy's predecessor on the Enterprise?
+  answer: Mark Piper
+  options:
+  - Elizabeth Dehner
+  - Gary Mitchell
+  - Phillip Boyce
+- !question
+  question: What crew member of the USS Enterprise-D volunteered as a temporary host for the Trill symbiont Odan?
+  answer: Riker
+  options:
+  - Guinan
+  - Worf
+  - Picard
+- !question
+  question: What Star Trek species was bred as livestock on their homeworld?
+  answer: Kelpien
+  options:
+  - Lorcan
+  - Breen
+  - Chenari
+- !question
+  question: What is the name of Will Riker's transporter twin?
+  answer: Thomas
+  options:
+  - Anthony
+  - Ed
+  - Billy
+- !question
+  question: 'What was the working title of Star Trek: Discovery when it began filming in 2017?'
+  answer: Tennessee Honey
+  options:
+  - Blue Harvest
+  - Rory's First Kiss
+  - Star Beast
+- !question
+  question: Who served as the First Officer of both the USS Shenzhou and USS Discovery?
+  answer: Michael Burnham
+  options:
+  - Gabriel Lorca
+  - Ash Tyler
+  - Philippa Georgiou
+- !question
+  question: What describes the inhabitants of Gamma Vertis IV?
+  answer: They were blind
+  options:
+  - They couldn't smell
+  - They were deaf
+  - They were mute
+- !question
+  question: What was the first sentient species with whom the Denobulans made contact?
+  answer: B'Saari
+  options:
+  - Edo
+  - Hur'q
+  - Antaran
+- !question
+  question: What Star Trek planet is known for its moth swarms?
+  answer: Gonal IV
+  options:
+  - Haakon
+  - Icore IX
+  - Janus VI
+- !question
+  question: Where was Voyager Chief Engineer B'Elanna Torres born?
+  answer: Kessik IV
+  options:
+  - Kronos
+  - New Gaul
+  - Earth
+- !question
+  question: Where was Will Riker born?
+  answer: Alaska
+  options:
+  - California
+  - Texas
+  - Ohio
+- !question
+  question: Who does Captain Kirk marry in "The Paradise Syndrome"?
+  answer: Miramanee
+  options:
+  - Nirobi
+  - Shahna
+  - Deela
+- !question
+  question: Who does Captain Kirk switch bodies with in "The Turnabout Intruder"?
+  answer: Janice Lester
+  options:
+  - Spock
+  - Arthur Coleman
+  - Carol Marcus
+- !question
+  question: "What is the name of Picard's dog in Star Trek: Picard?"
+  answer: Number One
+  options:
+  - Data
+  - Henri
+  - Q
+- !question
+  question: 'What is the holodeck known as in Star Trek: The Animated Series?'
+  answer: The Rec Room
+  options:
+  - The Away Room
+  - The Dream Room
+  - The Play Room
+- !question
+  question: 'Star Trek: Enterprise explores the 22nd century conflict between the Vulcans and which other alien race?'
+  answer: Andorians
+  options:
+  - Cherons
+  - Romulans
+  - Tellarites
+- !question
+  question: Where on the Enterprise is Picard when he first utters the phrase "Make it so"?
+  answer: The battle bridge
+  options:
+  - Captain's Quarters
+  - Cargo Bay 1
+  - Emergency Turbolift
+- !question
+  question: 'Name the Dax host who succeeds Jadzia Dax on Star Trek: Deep Space Nine.'
+  answer: Ezri Dax
+  options:
+  - Frakie Dax
+  - Joran Dax
+  - Tobin Dax
+- !question
+  question: "Where on Earth do Kirk's renegades land their stolen Klingon Bird-of-Prey in Star Trek IV: The Voyage Home?"
+  answer: Golden Gate Park
+  options:
+  - Disneyland
+  - Grand Canyon
+  - Yosemite National Park
+- !question
+  question: Which infraction is Kirk NOT formally accused of during his Starfleet career?
+  answer: Perjury
+  options:
+  - Murder
+  - Starship theft
+  - Wrongful death
+- !question
+  question: In "Star Trek Generations" what occasion does Picard mark while in the Nexus?
+  answer: Christmas
+  options:
+  - Gratitude Festival
+  - His birthday
+  - Kirk's birthday
+- !question
+  question: NBC rejected the pilot for "Star Trek". Which famous comedian got them to take another look?
+  answer: Lucille Ball
+  options:
+  - Dean Martin
+  - Jerry Lewis
+  - Bob Hope
+- !question
+  question: Which character has appeared in more episodes than any other in all of Trek history?
+  answer: Worf
+  options:
+  - Spock
+  - Picard
+  - Data
+- !question
+  question: Which TNG actor was so convinced that the show would fail that they didn't bother to unpack their bags for over
+    a month?
+  answer: Patrick Stewart
+  options:
+  - Brent Spiner
+  - Levar Burton
+  - Marina Sirtis
+- !question
+  question: Which actor was the first to play a Vulcan a Romulan and a Klingon?
+  answer: Mark Lenard
+  options:
+  - Robert O'Reilly
+  - Jeffrey Combs
+  - Barry Bostwick
+- !question
+  question: How many different characters has actor Jeffrey Combs played in the Star Trek universe?
+  answer: Eight
+  options:
+  - Six
+  - Four
+  - Ten
+- !question
+  question: Which Trek actor helped to create the Klingon language?
+  answer: James Doohan
+  options:
+  - Leonard Nimoy
+  - Nichelle Nichols
+  - George Takei
+- !question
+  question: What ship does Hikaru Sulu go on to command when he is promoted to captain?
+  answer: Excelsior
+  options:
+  - Defiant
+  - Yamamoto
+  - Trident
+- !question
+  question: What medical issue did William Shatner and Leonard Nimoy both suffer as a result of standing too close to a special
+    effect explosion?
+  answer: Tinnitus
+  options:
+  - Temporary blindness
+  - Second-degree burns
+  - Edema
+- !question
+  question: The crew of Kirk's Enterprise crossed over with which famous team of Marvel superheroes in a comic book?
+  answer: The X-Men
+  options:
+  - The Avengers
+  - The Defenders
+  - The Fantastic Four
+- !question
+  question: Where on Earth did James T. Kirk grow up?
+  answer: Iowa
+  options:
+  - Calgary
+  - Mojave
+  - Colorado
+- !question
+  question: 'What were the names of the whales Kirk and crew saved in "Star Trek IV: The Voyage Home"?'
+  answer: George and Gracie
+  options:
+  - Lancelot and Guenevere
+  - Luke and Laura
+  - Bogie and Bacall
+- !question
+  question: Captain Kirk and crew met beings claiming to be all but one of the following figures from humand legend and history.
+    Which one?
+  answer: Mozart
+  options:
+  - Abraham Lincoln
+  - The Greek god Apollo
+  - Leonardo da Vinci
+- !question
+  question: This Dax took a young Cisco under his wing.
+  answer: Curzon Dax
+  options:
+  - Ezri Dax
+  - Jadzia Dax
+  - Joran Dax
