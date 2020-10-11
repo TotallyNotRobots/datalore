@@ -30,6 +30,8 @@ from sqlalchemy import Column, Integer, String
 
 from datalore import db
 
+img_dir = Path("imgs").resolve()
+
 
 # noinspection PyUnusedName
 class Character(db.Base):
@@ -152,6 +154,17 @@ class ChallengeRoll:
         self.complications = complications
         self.succeeded = succeeded
 
+    def get_img(self) -> discord.File:
+        if self.succeeded:
+            if self.has_complications:
+                file = get_img("Yellow-alert.gif")
+            else:
+                file = get_img("Green-alert.gif")
+        else:
+            file = get_img("Red-alert.gif")
+
+        return file
+
     @classmethod
     def do_roll(
         cls,
@@ -218,7 +231,8 @@ class ChallengeRoll:
         )
 
 
-URL = os.getenv("URL_PATH")
+def get_img(name: str) -> discord.File:
+    return discord.File(img_dir / name)
 
 
 class STA(commands.Cog):
@@ -247,10 +261,9 @@ class STA(commands.Cog):
             colour=discord.Colour.blue(),
         )
 
-        if URL:
-            embed.set_author(name=player, icon_url=URL + "Commbadge.png")
-        else:
-            embed.set_author(name=player)
+        file = get_img("Commbadge.png")
+
+        embed.set_author(name=player, icon_url=f"attachment://{file.filename}")
 
         embed.add_field(name="Stress", value=str(character.stress))
         embed.add_field(
@@ -273,7 +286,7 @@ class STA(commands.Cog):
         )
         embed.add_field(name="Medicine", value=str(character.disc_medicine))
 
-        await ctx.send(embed=embed)
+        await ctx.send(embed=embed, file=file)
 
     @commands.command(name="dmg", help="Roll Damage.")
     async def damage(self, ctx: Context, dice_pool: int) -> None:
@@ -346,8 +359,8 @@ class STA(commands.Cog):
         try:
             value = getattr(state, stat.lower())
             setattr(state, stat.lower(), value + diff)
-        except AttributeError as ex:
-            await ctx.send("Bad stat: " + ex.args[0])
+        except AttributeError:
+            await ctx.send("Bad stat: " + stat)
             return
 
         if send:
@@ -416,8 +429,8 @@ class STA(commands.Cog):
             elif stat_lower in ["stress", "str"]:
                 character.stress += change
 
-        await self.player_embed(ctx)
         db.Session().commit()
+        await self.player_embed(ctx)
 
     @commands.command(name="set_attr", help="sets player attribute to value.")
     async def set_attr(self, ctx: Context, stat: str, value: int) -> None:
@@ -425,8 +438,8 @@ class STA(commands.Cog):
         character = Character.get(player)
         try:
             character.set_attribute(stat, value)
-        except AttributeError as ex:
-            await ctx.send("Unknown attribute: " + ex.args[0])
+        except AttributeError:
+            await ctx.send("Unknown attribute: " + stat)
             return
 
         db.Session().commit()
@@ -438,8 +451,8 @@ class STA(commands.Cog):
         character = Character.get(ctx.message.author.name)
         try:
             character.set_discipline(disc, value)
-        except AttributeError as ex:
-            await ctx.send("Unknown discipline: " + ex.args[0])
+        except AttributeError:
+            await ctx.send("Unknown discipline: " + disc)
             return
 
         db.Session().commit()
@@ -502,7 +515,7 @@ class STA(commands.Cog):
 
     @commands.command(
         name="challenge",
-        help=("Undertake a challenge."),
+        help="Undertake a challenge.",
     )
     async def challenge(
         self,
@@ -518,9 +531,14 @@ class STA(commands.Cog):
 
         try:
             attr = character.get_attribute(attribute)
+        except AttributeError:
+            await ctx.send(f"Bad attribute: {attribute}")
+            return
+
+        try:
             disc = character.get_discipline(discipline)
-        except AttributeError as ex:
-            await ctx.send(f"Could not understand: {ex.args[0]}")
+        except AttributeError:
+            await ctx.send(f"Bad discipline: {discipline}")
             return
 
         challenge_value = attr + disc
@@ -544,21 +562,16 @@ class STA(commands.Cog):
                 ctx, stat="Momentum", diff=momentum, send=False
             )
 
-        if URL:
-            if roll.succeeded:
-                if roll.has_complications:
-                    embed.set_image(url=URL + "Yellow-alert.gif")
-                else:
-                    embed.set_image(url=URL + "Green-alert.gif")
-            else:
-                embed.set_image(url=URL + "Red-alert.gif")
+        file = roll.get_img()
 
-        await ctx.send(embed=embed)
+        embed.set_image(url=f"attachment://{file.filename}")
+
+        await ctx.send(embed=embed, file=file)
 
     @commands.command(
         name="gm_challenge",
         aliases=["gmchallenge"],
-        help=("Undertake a challenge."),
+        help="Undertake a challenge.",
     )
     async def gm_challenge(
         self,
@@ -571,7 +584,7 @@ class STA(commands.Cog):
         num_dict: int,
         focus: bool = False,
     ) -> None:
-        challenge_value = int(attribute_value) + int(discipline_value)
+        challenge_value = attribute_value + discipline_value
 
         roll = ChallengeRoll.do_roll(
             num_dict,
@@ -591,17 +604,13 @@ class STA(commands.Cog):
             embed.add_field(name="Threat: ", value=str(threat))
             GameState.get(ctx.channel.name).threat = threat
 
-        if URL:
-            if roll.succeeded:
-                if roll.has_complications:
-                    embed.set_image(url=URL + "Yellow-alert.gif")
-                else:
-                    embed.set_image(url=URL + "Green-alert.gif")
-            else:
-                embed.set_image(url=URL + "Red-alert.gif")
-
-        await ctx.send(embed=embed)
         db.Session().commit()
+
+        file = roll.get_img()
+
+        embed.set_image(url=f"attachment://{file.filename}")
+
+        await ctx.send(embed=embed, file=file)
 
 
 def init_db() -> None:
