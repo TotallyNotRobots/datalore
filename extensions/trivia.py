@@ -17,17 +17,14 @@ Trivia - A COG Module for the Datalore Discord bot
     along with Datalore.  If not, see <https://www.gnu.org/licenses/>.
 """
 import asyncio
-import json
-import os
 import random
-from pathlib import Path
 from typing import List, cast
 
 from discord import Message
-from discord.ext import commands
-from discord.ext.commands import Bot, Context
-from ruamel.yaml import YAML, yaml_object
-from sqlalchemy import Column, Integer, String
+from discord.ext import typed_commands
+from discord.ext.typed_commands import Bot, Cog, Context
+from ruamel.yaml.main import YAML, yaml_object
+from sqlalchemy import Column, Integer
 
 from datalore import db
 
@@ -36,17 +33,28 @@ from datalore import db
 class PlayerScore(db.Base):
     __tablename__ = "trivia_scores"
 
-    player = Column(String(), primary_key=True, index=True)
+    guild = Column(Integer(), primary_key=True, index=True)
+    player = Column(Integer(), primary_key=True, index=True)
 
     score = Column(Integer(), default=0)
     high_score = Column(Integer(), default=0)
 
     @classmethod
-    def get(cls, user: str) -> "PlayerScore":
+    def get(cls, ctx: Context) -> "PlayerScore":
         session = db.Session()
-        state = cast(PlayerScore, session.query(cls).get(user))
+        guild = ctx.guild
+        author = ctx.author
+        if not guild:
+            raise ValueError("Missing guild?!")
+
+        if not author:
+            raise ValueError("Missing author?!")
+
+        guild_id = guild.id
+        author_id = author.id
+        state = cast(PlayerScore, session.query(cls).get((guild_id, author_id)))
         if state is None:
-            state = PlayerScore(player=user)
+            state = PlayerScore(guild=guild_id, player=author_id)
             session.add(state)
             session.commit()
 
@@ -72,10 +80,9 @@ class Question:
         )
 
 
-class Trivia(commands.Cog):
-    def __init__(self, bot: Bot) -> None:
+class Trivia(Cog[Context]):
+    def __init__(self, bot: Bot[Context]) -> None:
         self.bot = bot
-
         self.questions = self.load_data()
 
     @staticmethod
@@ -83,19 +90,16 @@ class Trivia(commands.Cog):
         with open("data/trivia.yml", encoding="utf-8") as file:
             return cast(List[Question], yaml.load(file))
 
-    @commands.command(name="scores", help="Get the Trivia high scores")
+    @typed_commands.command(name="scores", help="Get the Trivia high scores")
     async def scores(self, ctx: Context) -> None:
-        await ctx.send(
-            f"Your High Score is: {PlayerScore.get(ctx.author.name).high_score}"
-        )
+        await ctx.send(f"Your High Score is: {PlayerScore.get(ctx).high_score}")
 
-    @commands.command(
+    @typed_commands.command(
         name="trivia",
         help="Asks a Trivia Question. You have 30 seconds to answer!",
     )
     async def trivia(self, ctx: Context) -> None:
-        player = ctx.message.author.name
-        score = PlayerScore.get(player)
+        score = PlayerScore.get(ctx)
 
         response = "Answer the Question in 30 seconds!"
         await ctx.send(response)
@@ -135,7 +139,7 @@ class Trivia(commands.Cog):
                 score.high_score = score.score
                 new_high_score = True
 
-            await ctx.message.channel.send(
+            await ctx.send(
                 f"You are right! Your current score is: {score.score}\n"
                 f"Your high score is: {score.high_score}"
             )
@@ -143,7 +147,7 @@ class Trivia(commands.Cog):
                 await ctx.send("New high score \N{party popper}")
         else:
             score.score = 0
-            await ctx.message.channel.send(
+            await ctx.send(
                 f'Oh no! The answer was: "{chosen_row.answer}".\n'
                 f"Your high score is: {score.high_score}"
             )
@@ -151,29 +155,5 @@ class Trivia(commands.Cog):
         db.Session().commit()
 
 
-def db_init() -> None:
-    session = db.Session()
-    scores_file_name = os.getenv("SCORES")
-
-    PlayerScore.__table__.create(db.engine, True)
-    if session.query(PlayerScore).count() <= 0 and scores_file_name:
-        scores_file = Path(scores_file_name)
-        if scores_file.exists():
-            with open(scores_file, encoding="utf-8") as file:
-                data = json.load(file)
-
-            for player, score in data.items():
-                session.add(
-                    PlayerScore(
-                        player=player,
-                        score=int(score["Score"]),
-                        high_score=int(score["High Score"]),
-                    )
-                )
-
-    session.commit()
-
-
-def setup(bot: Bot) -> None:
-    db_init()
+def setup(bot: Bot[Context]) -> None:
     bot.add_cog(Trivia(bot))

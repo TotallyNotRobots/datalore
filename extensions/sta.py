@@ -16,24 +16,26 @@ STA - A COG Module for the Datalore Discord bot
     You should have received a copy of the GNU General Public License
     along with Datalore.  If not, see <https://www.gnu.org/licenses/>.
 """
-import json
-import os
 import random
 from pathlib import Path
-from typing import Optional, cast
+from typing import Optional, Union, cast
 
 import discord
-from discord import Colour, Embed
-from discord.ext import commands
-from discord.ext.commands import Bot, Context
+from discord import Colour, Embed, Member, User
+from discord.ext import typed_commands
+from discord.ext.typed_commands import Bot, Cog, Context
 from sqlalchemy import Column, Integer, String
 
 from datalore import db
+from datalore.util import find_user_in_guild
 
 img_dir = Path("imgs").resolve()
 
 
-# noinspection PyUnusedName
+class NoSuchMember(Exception):
+    pass
+
+
 class Character(db.Base):
     """
     Player's character data
@@ -41,9 +43,11 @@ class Character(db.Base):
 
     __tablename__ = "characters"
 
-    name = Column(String(), index=True)
-    player = Column(String(), index=True, primary_key=True)
-    race = Column(String())
+    guild = Column(Integer(), index=True, primary_key=True)
+    player = Column(Integer(), index=True, primary_key=True)
+
+    name = Column(String(), index=True, nullable=False)
+    race = Column(String(), nullable=False)
     stress = Column(Integer(), default=0)
     determination = Column(Integer(), default=0)
 
@@ -64,14 +68,32 @@ class Character(db.Base):
     disc_conn = Column(Integer())
 
     @classmethod
-    def get(cls, player: str) -> "Character":
+    def get(
+        cls, ctx: Context, player_name: Optional[str] = None
+    ) -> "Character":
         """
         Get a player's character
 
-        :param player: Player's name
+        :param player_name: Player's name
         :return: Player's character or None
         """
-        return cast(Character, db.Session().query(cls).get(player))
+        guild = ctx.guild
+        if not guild:
+            raise ValueError("Unset guild?!")
+
+        member: Union[User, Member]
+        if player_name:
+            found = find_user_in_guild(guild, player_name)
+            if not found:
+                raise NoSuchMember(player_name)
+
+            member = found
+        else:
+            member = ctx.author
+
+        return cast(
+            Character, db.Session().query(cls).get((guild.id, member.id))
+        )
 
     def set_attribute(self, name: str, value: int) -> None:
         """
@@ -116,25 +138,42 @@ class GameState(db.Base):
 
     __tablename__ = "game_state"
 
-    channel = Column(String(), primary_key=True, index=True)
+    guild = Column(Integer(), primary_key=True, index=True)
 
-    momentum = Column(Integer())
-    threat = Column(Integer())
+    momentum = Column(Integer(), default=0, nullable=False)
+    threat = Column(Integer(), default=0, nullable=False)
 
     @classmethod
-    def get(cls, channel: str) -> "GameState":
+    def get_or_create(cls, context: Context) -> "GameState":
+        state = cls.get(context)
+        guild = context.guild
+        if not guild:
+            raise ValueError("Missing guild?!")
+
+        if state is None:
+            session = db.Session()
+            state = GameState(guild=guild.id, momentum=0, threat=0)
+            session.add(state)
+            session.commit(state)
+
+        return state
+
+    @classmethod
+    def get(cls, context: Context) -> Optional["GameState"]:
         """
         Get a game state
 
-        :param channel: Channel to get the state for
         :return: Current state
         """
         session = db.Session()
-        state = session.query(cls).get(channel)
+        guild = context.guild
+        if not guild:
+            raise ValueError("Missing guild?!")
+
+        guild_id = guild.id
+        state = session.query(cls).get(guild_id)
         if state is None:
-            state = GameState(channel=channel, momentum=0, threat=0)
-            session.add(state)
-            session.commit(state)
+            return None
 
         return cast(GameState, state)
 
@@ -252,15 +291,15 @@ class ChallengeRoll:
 
 
 def get_img(name: str) -> discord.File:
-    return discord.File(img_dir / name)
+    return discord.File(str(img_dir / name))
 
 
-class STA(commands.Cog):
+class STA(Cog[Context]):
     """
     Plugin implementation
     """
 
-    def __init__(self, bot: Bot) -> None:
+    def __init__(self, bot: Bot[Context]) -> None:
         self.bot = bot
 
     @staticmethod
@@ -270,20 +309,20 @@ class STA(commands.Cog):
         :param ctx: Context to show the data in
         :param player: Player to show, defaults to calling player
         """
-        if player is None:
-            player = str(ctx.author.name)
-
-        character = Character.get(player)
+        character = Character.get(ctx, player_name=player)
 
         embed = discord.Embed(
             title=character.name,
             description=character.race,
-            colour=discord.Colour.blue(),
+            colour=Colour.blue(),
         )
 
         file = get_img("Commbadge.png")
 
-        embed.set_author(name=player, icon_url=f"attachment://{file.filename}")
+        embed.set_author(
+            name=player or ctx.author.name,
+            icon_url=f"attachment://{file.filename}",
+        )
 
         embed.add_field(name="Stress", value=str(character.stress))
         embed.add_field(
@@ -308,7 +347,7 @@ class STA(commands.Cog):
 
         await ctx.send(embed=embed, file=file)
 
-    @commands.command(name="dmg", help="Roll Damage.")
+    @typed_commands.command(name="dmg", help="Roll Damage.")
     async def damage(self, ctx: Context, dice_pool: int) -> None:
         """
         Roll a damage check
@@ -333,9 +372,7 @@ class STA(commands.Cog):
                 dmg += 1
                 effects += 1
 
-        embed = discord.Embed(
-            title="Damage Result", colour=discord.Colour.magenta()
-        )
+        embed = discord.Embed(title="Damage Result", colour=Colour.magenta())
 
         embed.add_field(name="Damage: ", value=str(dmg))
         embed.add_field(name="Effects: ", value=str(effects))
@@ -354,7 +391,7 @@ class STA(commands.Cog):
         """
         embed = discord.Embed(
             title="Game Stats",
-            description=f"***{state.channel}***  Threat and Momentum",
+            description="Threat and Momentum",
             colour=color,
         )
 
@@ -374,8 +411,7 @@ class STA(commands.Cog):
         :param diff: Stat change
         :param send: Whether to send the changed values
         """
-        channel = ctx.channel.name
-        state = GameState.get(channel)
+        state = GameState.get_or_create(ctx)
         try:
             value = getattr(state, stat.lower())
             setattr(state, stat.lower(), value + diff)
@@ -384,11 +420,11 @@ class STA(commands.Cog):
             return
 
         if send:
-            await self.show_game(ctx, state, color=discord.Colour.magenta())
+            await self.show_game(ctx, state, color=Colour.magenta())
 
         db.Session().commit()
 
-    @commands.group(
+    @typed_commands.group(
         name="game_stats",
         aliases=["gamestats", "gstats", "game"],
         help="View and Modify current Game Stats",
@@ -397,10 +433,9 @@ class STA(commands.Cog):
         self,
         ctx: Context,
     ) -> None:
-        channel = ctx.channel.name
-        state = GameState.get(channel)
 
         if ctx.invoked_subcommand is None:
+            state = GameState.get_or_create(ctx)
             await self.show_game(ctx, state, Colour.gold())
             return
 
@@ -414,7 +449,7 @@ class STA(commands.Cog):
         await self.set_game_stat(ctx, stat, -value)
         db.Session().commit()
 
-    @commands.command(
+    @typed_commands.command(
         name="get_char",
         aliases=["getchar", "char"],
         help="View current player Stats.",
@@ -422,12 +457,11 @@ class STA(commands.Cog):
     async def get_stat(self, ctx: Context) -> None:
         await self.player_embed(ctx)
 
-    @commands.command(name="set_stats", help="sets various player stats.")
+    @typed_commands.command(name="set_stats", help="sets various player stats.")
     async def set_stat(
         self, ctx: Context, stat: str, subcmd: str, value: int
     ) -> None:
-        player = ctx.author.name
-        character = Character.get(player)
+        character = Character.get(ctx)
 
         stat_lower = stat.lower()
         if subcmd == "set":
@@ -452,10 +486,11 @@ class STA(commands.Cog):
         db.Session().commit()
         await self.player_embed(ctx)
 
-    @commands.command(name="set_attr", help="sets player attribute to value.")
+    @typed_commands.command(
+        name="set_attr", help="sets player attribute to value."
+    )
     async def set_attr(self, ctx: Context, stat: str, value: int) -> None:
-        player = ctx.author.name
-        character = Character.get(player)
+        character = Character.get(ctx)
         try:
             character.set_attribute(stat, value)
         except AttributeError:
@@ -466,9 +501,11 @@ class STA(commands.Cog):
 
         await self.player_embed(ctx)
 
-    @commands.command(name="set_disc", help="sets player discipline to value.")
+    @typed_commands.command(
+        name="set_disc", help="sets player discipline to value."
+    )
     async def set_disc(self, ctx: Context, disc: str, value: int) -> None:
-        character = Character.get(ctx.message.author.name)
+        character = Character.get(ctx)
         try:
             character.set_discipline(disc, value)
         except AttributeError:
@@ -478,7 +515,7 @@ class STA(commands.Cog):
         db.Session().commit()
         await self.player_embed(ctx)
 
-    @commands.command(
+    @typed_commands.command(
         name="create_player",
         help="Creates a Player and Stats.",
     )
@@ -499,13 +536,27 @@ class STA(commands.Cog):
         engineering: int,
         science: int,
         medicine: int,
+        player_name: Optional[str] = None,
     ) -> None:
-        player: str = ctx.author.name
-        character = Character.get(player)
+        guild = ctx.guild
+        if not guild:
+            raise ValueError("Missing guild")
+        member: Union[Member, User]
+        if player_name:
+            found = find_user_in_guild(guild, player_name)
+            if found is None:
+                raise NoSuchMember(player_name)
+            member = found
+        else:
+            member = ctx.author
+            if not member:
+                raise ValueError("Missing author")
+
+        character = Character.get(ctx, player_name)
 
         if character:
             await ctx.send(
-                f"{player} already has a Character ({character.name})."
+                f"{member.display_name} already has a Character ({character.name})."
             )
             return
 
@@ -524,7 +575,8 @@ class STA(commands.Cog):
             disc_science=science,
             disc_security=security,
             disc_engineering=engineering,
-            player=player,
+            player=member.id,
+            guild=guild.id,
         )
         session = db.Session()
         session.add(character)
@@ -533,7 +585,7 @@ class STA(commands.Cog):
 
         await self.player_embed(ctx)
 
-    @commands.command(
+    @typed_commands.command(
         name="challenge",
         help="Undertake a challenge.",
     )
@@ -546,8 +598,7 @@ class STA(commands.Cog):
         num_dice: int,
         focus: bool = False,
     ) -> None:
-        player: str = ctx.author.name
-        character = Character.get(player)
+        character = Character.get(ctx)
 
         try:
             attr = character.get_attribute(attribute)
@@ -578,7 +629,7 @@ class STA(commands.Cog):
         if roll.successes > difficulty:
             momentum = roll.successes - difficulty
             embed.add_field(name="Momentum: ", value=f"+{momentum}")
-            GameState.get(ctx.channel).add_momentum(momentum)
+            GameState.get_or_create(ctx).add_momentum(momentum)
 
         file = roll.get_img()
 
@@ -586,7 +637,7 @@ class STA(commands.Cog):
 
         await ctx.send(embed=embed, file=file)
 
-    @commands.command(
+    @typed_commands.command(
         name="gm_challenge",
         aliases=["gmchallenge"],
         help="Undertake a challenge.",
@@ -620,7 +671,7 @@ class STA(commands.Cog):
         if roll.successes > difficulty:
             threat = roll.successes - difficulty
             embed.add_field(name="Threat: ", value=str(threat))
-            GameState.get(ctx.channel.name).add_threat(threat)
+            GameState.get_or_create(ctx).add_threat(threat)
 
         db.Session().commit()
 
@@ -631,72 +682,10 @@ class STA(commands.Cog):
         await ctx.send(embed=embed, file=file)
 
 
-def init_db() -> None:
-    """
-    Migrate game data if it is still in the old format
-    """
-    session = db.Session()
-    stats_file_name = os.getenv("STA_STATS")
-    game_stats_file_prefix = os.getenv("GAME_STATS")
-    Character.__table__.create(db.engine, True)
-    if session.query(Character).count() <= 0 and stats_file_name:
-        stats_file = Path(stats_file_name)
-        if stats_file.exists():
-            with open(stats_file, encoding="utf-8") as file:
-                data = json.load(file)
-
-            for player, char in data.items():
-                attributes = {
-                    f"attr_{k.lower()}": int(v)
-                    for k, v in char["Attributes"].items()
-                }
-
-                disciplines = {
-                    f"disc_{k.lower()}": int(v)
-                    for k, v in char["Disciplines"].items()
-                }
-
-                character = Character(
-                    player=player,
-                    name=char["Name"],
-                    race=char["Race"],
-                    stress=int(char["Stress"]),
-                    determination=int(char["Determination"]),
-                    **attributes,
-                    **disciplines,
-                )
-
-                session.add(character)
-
-    GameState.__table__.create(db.engine, True)
-    if session.query(GameState).count() <= 0 and game_stats_file_prefix:
-        game_stats_file = Path(game_stats_file_prefix)
-        game_stats_files = list(
-            game_stats_file.parent.rglob(f"{game_stats_file.name}*.json")
-        )
-
-        for path in game_stats_files:
-            channel = path.name.rsplit(".")[-2]
-
-            with open(path, encoding="utf-8") as file:
-                data = json.load(file)
-
-            session.add(
-                GameState(
-                    channel=channel,
-                    momentum=int(data["Momentum"]),
-                    threat=int(data["Stress"]),
-                )
-            )
-
-    session.commit()
-
-
-def setup(bot: Bot) -> None:
+def setup(bot: Bot[Context]) -> None:
     """
     Setup the plugin
 
     :param bot: Bot to add the plugin to
     """
-    init_db()
     bot.add_cog(STA(bot))
