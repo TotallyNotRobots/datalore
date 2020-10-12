@@ -81,12 +81,12 @@ client = commands.Bot(
 )
 
 
-@client.command
+@client.command()
 async def load(extension: str) -> None:
     client.load_extension(f"extensions.{extension}")
 
 
-@client.command
+@client.command()
 async def unload(extension: str) -> None:
     client.unload_extension(f"extensions.{extension}")
 
