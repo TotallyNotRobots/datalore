@@ -5,7 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 pylint = "~=2.6.0"
-isort = "~=5.6.1"
+isort = "~=5.6.3"
 black = {version = "==20.8b1", pre = true}
 
 [packages]
