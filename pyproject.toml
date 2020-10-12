@@ -8,7 +8,7 @@ float_to_top=true
 
 [tool.black]
 line-length = 80
-target-version = ['py36']
+target-version = ['py38']
 include = '\.pyi?$'
 exclude = '''
 (
