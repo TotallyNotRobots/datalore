@@ -9,3 +9,5 @@ data/Stats.json
 
 # Local database file
 *.db
+
+logs/
