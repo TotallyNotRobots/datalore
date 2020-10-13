@@ -154,7 +154,7 @@ class GameState(db.Base):
             session = db.Session()
             state = GameState(guild=guild.id, momentum=0, threat=0)
             session.add(state)
-            session.commit(state)
+            session.commit()
 
         return state
 
