@@ -74,6 +74,7 @@ class Character(db.Base):
         """
         Get a player's character
 
+        :param ctx: Context
         :param player_name: Player's name
         :return: Player's character or None
         """
@@ -400,29 +401,54 @@ class STA(Cog[Context]):
 
         await ctx.send(embed=embed)
 
-    async def set_game_stat(
-        self, ctx: Context, stat: str, diff: int, send: bool = True
-    ) -> None:
+    async def sub_game_stat(self, ctx: Context, stat: str, diff: int) -> None:
         """
         Set a stat on the game state
 
         :param ctx: Game context
         :param stat: Stat name
         :param diff: Stat change
-        :param send: Whether to send the changed values
         """
         state = GameState.get_or_create(ctx)
-        try:
-            value = getattr(state, stat.lower())
-            setattr(state, stat.lower(), value + diff)
-        except AttributeError:
-            await ctx.send(f"Bad stat: {stat}")
+        stat_l = stat.lower()
+
+        if stat_l == "momentum":
+            changed = state.sub_momentum(diff)
+        elif stat_l == "threat":
+            changed = state.sub_threat(diff)
+        else:
+            await ctx.send(f"Unknown stat: {stat}")
             return
 
-        if send:
-            await self.show_game(ctx, state, color=Colour.magenta())
+        if not changed:
+            await ctx.send(f"Not enough {stat} (Needed {diff})")
 
         db.Session().commit()
+
+        await self.show_game(ctx, state, color=Colour.magenta())
+
+    async def add_game_stat(self, ctx: Context, stat: str, diff: int) -> None:
+        """
+        Set a stat on the game state
+
+        :param ctx: Game context
+        :param stat: Stat name
+        :param diff: Stat change
+        """
+        state = GameState.get_or_create(ctx)
+        stat_l = stat.lower()
+
+        if stat_l == "momentum":
+            state.add_momentum(diff)
+        elif stat_l == "threat":
+            state.add_threat(diff)
+        else:
+            await ctx.send(f"Unknown stat: {stat}")
+            return
+
+        db.Session().commit()
+
+        await self.show_game(ctx, state, color=Colour.magenta())
 
     @typed_commands.group(
         name="game_stats",
@@ -433,7 +459,6 @@ class STA(Cog[Context]):
         self,
         ctx: Context,
     ) -> None:
-
         if ctx.invoked_subcommand is None:
             state = GameState.get_or_create(ctx)
             await self.show_game(ctx, state, Colour.gold())
@@ -441,12 +466,12 @@ class STA(Cog[Context]):
 
     @game_stats.command(name="add")
     async def add_game(self, ctx: Context, stat: str, value: int) -> None:
-        await self.set_game_stat(ctx, stat, value)
+        await self.add_game_stat(ctx, stat, value)
         db.Session().commit()
 
     @game_stats.command(name="sub")
     async def sub_game(self, ctx: Context, stat: str, value: int) -> None:
-        await self.set_game_stat(ctx, stat, -value)
+        await self.sub_game_stat(ctx, stat, abs(value))
         db.Session().commit()
 
     @typed_commands.command(
