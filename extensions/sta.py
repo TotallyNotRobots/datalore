@@ -31,10 +31,7 @@ from datalore import db
 img_dir = Path("imgs").resolve()
 
 
-class NoSuchMember(Exception):
-    pass
-
-
+# noinspection PyUnusedName
 class Character(db.Base):
     """
     Player's character data
@@ -247,9 +244,8 @@ class ChallengeRoll:
             if roll == 1:
                 successes += 1
 
-            if focus:
-                if roll < discipline_value:
-                    complications += 1
+            if focus and roll < discipline_value:
+                successes += 1
 
         succeeded = successes >= difficulty
         if complications > 0:
