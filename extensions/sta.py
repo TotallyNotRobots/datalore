@@ -649,6 +649,7 @@ class STA(Cog[Context]):
         challenge_value = attr + disc
 
         # Success, Complication
+        game_state = GameState.get_or_create(ctx)
         roll = ChallengeRoll.do_roll(
             num_dice,
             challenge_value,
@@ -660,10 +661,14 @@ class STA(Cog[Context]):
             difficulty,
         )
         embed = roll.embed
+        old_momentum = game_state.momentum
         if roll.successes > difficulty:
             momentum = roll.successes - difficulty
-            embed.add_field(name="Momentum: ", value=f"+{momentum}")
-            GameState.get_or_create(ctx).add_momentum(momentum)
+            game_state.add_momentum(momentum)
+
+        momentum_diff = game_state.momentum - old_momentum
+        if momentum_diff:
+            embed.add_field(name="Momentum: ", value=f"+{momentum_diff}")
 
         file = roll.get_img()
 
@@ -684,13 +689,14 @@ class STA(Cog[Context]):
         discipline: str,
         discipline_value: int,
         difficulty: int,
-        num_dict: int,
+        num_dice: int,
         focus: bool = False,
+        do_threat: bool = False,
     ) -> None:
         challenge_value = attribute_value + discipline_value
 
         roll = ChallengeRoll.do_roll(
-            num_dict,
+            num_dice,
             challenge_value,
             focus,
             discipline_value,
@@ -702,10 +708,15 @@ class STA(Cog[Context]):
 
         embed = roll.embed
 
-        if roll.successes > difficulty:
+        game_state = GameState.get_or_create(ctx)
+        old_threat = game_state.threat
+        if do_threat and roll.successes > difficulty:
             threat = roll.successes - difficulty
-            embed.add_field(name="Threat: ", value=str(threat))
-            GameState.get_or_create(ctx).add_threat(threat)
+            game_state.add_threat(threat)
+
+        threat_diff = game_state.threat - old_threat
+        if threat_diff:
+            embed.add_field(name="Threat: ", value=f"+{threat_diff}")
 
         db.Session().commit()
 
