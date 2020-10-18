@@ -21,7 +21,9 @@ import logging.config
 import os
 from pathlib import Path
 
+from discord import Intents
 from discord.ext import commands
+from discord.ext.commands import Context
 
 from datalore import db
 
@@ -76,18 +78,23 @@ configure_loggers()
 
 log = logging.getLogger(__name__)
 
+intents = Intents.default()
+intents.members = True
+
 client = commands.Bot(
-    command_prefix=os.getenv("COMMAND_PREFIX", "!"), case_insensitive=True
+    command_prefix=os.getenv("COMMAND_PREFIX", "!"),
+    case_insensitive=True,
+    intents=intents,
 )
 
 
-@client.command()
-async def load(extension: str) -> None:
+@client.command("load")
+async def load_cb(ctx: Context, extension: str) -> None:
     client.load_extension(f"extensions.{extension}")
 
 
-@client.command()
-async def unload(extension: str) -> None:
+@client.command("unload")
+async def unload_cb(ctx: Context, extension: str) -> None:
     client.unload_extension(f"extensions.{extension}")
 
 

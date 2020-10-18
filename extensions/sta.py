@@ -23,11 +23,10 @@ from typing import Optional, Union, cast
 import discord
 from discord import Colour, Embed, Member, User
 from discord.ext import typed_commands
-from discord.ext.typed_commands import Bot, Cog, Context
+from discord.ext.typed_commands import Bot, Cog, Context, UserNotFound
 from sqlalchemy import Column, Integer, String
 
 from datalore import db
-from datalore.util import find_user_in_guild
 
 img_dir = Path("imgs").resolve()
 
@@ -69,13 +68,13 @@ class Character(db.Base):
 
     @classmethod
     def get(
-        cls, ctx: Context, player_name: Optional[str] = None
+        cls, ctx: Context, other_user: Optional[Union[User, Member]] = None
     ) -> "Character":
         """
         Get a player's character
 
         :param ctx: Context
-        :param player_name: Player's name
+        :param other_user: Player's name
         :return: Player's character or None
         """
         guild = ctx.guild
@@ -83,12 +82,8 @@ class Character(db.Base):
             raise ValueError("Unset guild?!")
 
         member: Union[User, Member]
-        if player_name:
-            found = find_user_in_guild(guild, player_name)
-            if not found:
-                raise NoSuchMember(player_name)
-
-            member = found
+        if other_user:
+            member = other_user
         else:
             member = ctx.author
 
@@ -304,13 +299,20 @@ class STA(Cog[Context]):
         self.bot = bot
 
     @staticmethod
-    async def player_embed(ctx: Context, player: Optional[str] = None) -> None:
+    async def player_embed(
+        ctx: Context, other_user: Optional[Union[User, Member]] = None
+    ) -> None:
         """
         Display player info
         :param ctx: Context to show the data in
-        :param player: Player to show, defaults to calling player
+        :param other_user: Player to show, defaults to calling player
         """
-        character = Character.get(ctx, player_name=player)
+        member = other_user or ctx.author
+        character = Character.get(ctx, member)
+
+        if not character:
+            await ctx.send("No char found")
+            return
 
         embed = discord.Embed(
             title=character.name,
@@ -321,7 +323,7 @@ class STA(Cog[Context]):
         file = get_img("Commbadge.png")
 
         embed.set_author(
-            name=player or ctx.author.name,
+            name=member.display_name,
             icon_url=f"attachment://{file.filename}",
         )
 
@@ -543,6 +545,7 @@ class STA(Cog[Context]):
     @typed_commands.command(
         name="create_player",
         help="Creates a Player and Stats.",
+        ignore_extra=False,
     )
     async def create_player(
         self,
@@ -561,23 +564,22 @@ class STA(Cog[Context]):
         engineering: int,
         science: int,
         medicine: int,
-        player_name: Optional[str] = None,
+        other_user: User = None,
     ) -> None:
         guild = ctx.guild
         if not guild:
             raise ValueError("Missing guild")
+
         member: Union[Member, User]
-        if player_name:
-            found = find_user_in_guild(guild, player_name)
-            if found is None:
-                raise NoSuchMember(player_name)
-            member = found
+        if other_user:
+            member = other_user
         else:
             member = ctx.author
-            if not member:
-                raise ValueError("Missing author")
 
-        character = Character.get(ctx, player_name)
+        if not member:
+            raise ValueError("Missing author")
+
+        character = Character.get(ctx, member)
 
         if character:
             await ctx.send(
@@ -608,7 +610,14 @@ class STA(Cog[Context]):
         session.commit()
         await ctx.send("Character created!")
 
-        await self.player_embed(ctx)
+        await self.player_embed(ctx, member)
+
+    @create_player.error
+    async def player_error(self, context: Context, exc: Exception) -> None:
+        if isinstance(exc, UserNotFound):
+            await context.send(f"Unknown player name: {exc.argument}")
+        else:
+            raise exc
 
     @typed_commands.command(
         name="challenge",
