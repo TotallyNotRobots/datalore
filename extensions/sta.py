@@ -241,7 +241,8 @@ class ChallengeRoll:
             if roll <= challenge_value:
                 successes += 1
 
-            if focus and roll <= discipline_value:
+            if focus:
+                if roll <= discipline_value:
                 successes += 1
 
             elif roll == 1:
