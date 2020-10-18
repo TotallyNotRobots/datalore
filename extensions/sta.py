@@ -243,7 +243,7 @@ class ChallengeRoll:
 
             if focus:
                 if roll <= discipline_value:
-                successes += 1
+                    successes += 1
             elif roll == 1:
                 successes += 1
 
