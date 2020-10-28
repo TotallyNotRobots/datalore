@@ -291,9 +291,6 @@ class STA(Cog[Context]):
     Plugin implementation
     """
 
-    def __init__(self, bot: Bot[Context]) -> None:
-        self.bot = bot
-
     @staticmethod
     async def player_embed(
         ctx: Context, other_user: Optional[Union[User, Member]] = None
@@ -729,4 +726,4 @@ def setup(bot: Bot[Context]) -> None:
 
     :param bot: Bot to add the plugin to
     """
-    bot.add_cog(STA(bot))
+    bot.add_cog(STA())

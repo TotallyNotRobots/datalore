@@ -51,7 +51,7 @@ repos:
     types: [python]
   - id: mypy
     name: mypy
-    entry: mypy --strict --no-strict-optional
+    entry: mypy --config-file=.mypy.ini
     language: system
     types: [python]
 - repo: https://github.com/jumanjihouse/pre-commit-hook-yamlfmt
