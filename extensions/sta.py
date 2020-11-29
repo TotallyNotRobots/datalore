@@ -535,6 +535,20 @@ class STA(Cog[Context]):
         db.Session().commit()
         await self.player_embed(ctx)
 
+    @typed_commands.command(name="delchar", help="Delete a character.")
+    async def del_char(self, ctx: Context, other_user: User = None) -> None:
+        character = Character.get(ctx, other_user)
+
+        if not character:
+            await ctx.send("No character found")
+            return
+
+        session = db.Session()
+        session.delete(character)
+        session.commit()
+
+        await ctx.send("Character deleted.")
+
     @typed_commands.command(
         name="create_player",
         help="Creates a Player and Stats.",
