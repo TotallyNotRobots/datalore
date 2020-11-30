@@ -2,7 +2,7 @@ import asyncio
 import random
 from asyncio import Future
 from typing import Iterable, List, cast
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, call
 
 import pytest
 from discord import Embed, File
@@ -44,6 +44,41 @@ class AssertEmbed:
 
 @pytest.mark.asyncio()
 @pytest.mark.usefixtures("set_db")
+async def test_del_char() -> None:
+    session = db.Session()
+    guild_id = 555
+    player_id = 111
+    session.add(
+        Character(
+            guild=guild_id,
+            player=player_id,
+            name="name",
+            race="race",
+            attr_reason=5,
+            disc_science=12,
+        )
+    )
+    session.commit()
+    cog = STA()
+    context = MagicMock()
+    context.author.id = player_id
+    context.guild.id = guild_id
+    context.guild.__bool__ = lambda *args: True
+    context.author.__bool__ = lambda *args: True
+    future: Future[bool] = asyncio.Future()
+    future.set_result(True)
+    context.send.return_value = future
+    context.mock_add_spec(["guild", "author", "send"], spec_set=True)
+
+    assert db.Session().query(Character).count() == 1
+    await STA.del_char(cog, context)
+    assert db.Session().query(Character).count() == 0
+
+    assert context.mock_calls == [call.send("Character deleted.")]
+
+
+@pytest.mark.asyncio()
+@pytest.mark.usefixtures("set_db")
 async def test_challenge() -> None:
     random.seed(1)
     session = db.Session()
@@ -73,6 +108,10 @@ async def test_challenge() -> None:
     msg = context.send.mock_calls[0]
     embed: Embed = msg.kwargs["embed"]
     file: File = msg.kwargs["file"]
+
+    # This is done by send normally
+    file.close()
+
     assert embed.author.name == Embed.Empty
     assert embed.title == "Challenge"
     fields = cast(List[EmbedProxy], embed.fields)
