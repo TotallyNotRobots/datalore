@@ -23,7 +23,9 @@ from typing import List, cast
 from discord import Message
 from discord.ext import typed_commands
 from discord.ext.typed_commands import Bot, Cog, Context
+from ruamel.yaml.constructor import Constructor
 from ruamel.yaml.main import YAML, yaml_object
+from ruamel.yaml.nodes import MappingNode
 from sqlalchemy import Column, Integer
 
 from datalore import db
@@ -61,7 +63,7 @@ class PlayerScore(db.Base):
         return state
 
 
-yaml = YAML()
+yaml = YAML(typ="safe")
 
 
 @yaml_object(yaml)
@@ -78,6 +80,13 @@ class Question:
             f"Question(question={self.question!r}, "
             f"answer={self.answer!r}, options={self.options!r})"
         )
+
+    @classmethod
+    def from_yaml(
+        cls, constructor: Constructor, node: MappingNode
+    ) -> "Question":
+        value = list(constructor.construct_yaml_map(node))[0]
+        return cls(**value)
 
 
 class Trivia(Cog[Context]):
