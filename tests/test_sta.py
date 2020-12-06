@@ -63,8 +63,8 @@ async def test_del_char() -> None:
     context = MagicMock()
     context.author.id = player_id
     context.guild.id = guild_id
-    context.guild.__bool__ = lambda *args: True
-    context.author.__bool__ = lambda *args: True
+    context.guild.__bool__.return_value = True
+    context.author.__bool__.return_value = True
     future: Future[bool] = asyncio.Future()
     future.set_result(True)
     context.send.return_value = future
@@ -74,7 +74,10 @@ async def test_del_char() -> None:
     await STA.del_char(cog, context)
     assert db.Session().query(Character).count() == 0
 
-    assert context.mock_calls == [call.send("Character deleted.")]
+    assert context.mock_calls == [
+        call.guild.__bool__(),
+        call.send("Character deleted."),
+    ]
 
 
 @pytest.mark.asyncio()
