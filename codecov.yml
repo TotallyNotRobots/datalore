@@ -1,8 +1,28 @@
 comment:
   require_changes: true
-
 coverage:
   status:
     patch:
-      default:
-        target: auto
+      default: false
+      tests:
+        target: 100%
+        paths:
+        - "tests/"
+      core:
+        paths:
+        - "datalore/"
+        target: 100%
+      plugins:
+        paths:
+        - "extensions/"
+    project:
+      tests:
+        target: 100%
+        paths:
+        - "tests/"
+      core:
+        paths:
+        - "datalore/"
+      plugins:
+        paths:
+        - "extensions/"
