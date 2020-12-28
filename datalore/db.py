@@ -9,10 +9,10 @@ __all__ = ("Session", "metadata", "engine", "Base")
 engine = create_engine(os.getenv("DB_URL", "sqlite:///datalore.db"))
 Session = scoped_session(sessionmaker(bind=engine))
 
-declarative_meta = declarative_base(bind=engine)
+_DeclarativeMeta = declarative_base(bind=engine)
 
 
-class Base(declarative_meta):
+class Base(_DeclarativeMeta):
     __abstract__ = True
 
     def __repr__(self) -> str:
