@@ -35,7 +35,7 @@ jobs:
         pipenv install --deploy --dev
     - name: Run tests
       run: pipenv run test
-    - uses: codecov/codecov-action@v1.0.13
+    - uses: codecov/codecov-action@v1.1.1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         name: build
