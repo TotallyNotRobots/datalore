@@ -1,6 +1,8 @@
 # DataLore
 DataLore is a Discord Bot built specifically for Star Trek focused Discord servers. Although it does have potential to be used in other arenas. Datalore is licensed under the GPL V3.
 
+This is a fork of [jcboysha-117/datalore](https://gitlab.com/jcboysha-117/datalore) on GitLab.
+
 ## Features
 - Commands for playing Star Trek Adventures
 - Trivia game with a growing database of questions
