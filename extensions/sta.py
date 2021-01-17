@@ -30,6 +30,24 @@ from datalore import db
 
 img_dir = Path("imgs").resolve()
 
+ATTRIBUTES = [
+    "control",
+    "fitness",
+    "presence",
+    "daring",
+    "insight",
+    "reason",
+]
+
+DISCIPLINES = [
+    "command",
+    "security",
+    "science",
+    "engineering",
+    "medicine",
+    "conn",
+]
+
 
 # noinspection PyUnusedName
 class Character(db.Base):
@@ -640,15 +658,20 @@ class STA(Cog[Context]):
         focus: bool = False,
     ) -> None:
         character = Character.get(ctx)
+        attribute_l = attribute.lower()
+        discipline_l = discipline.lower()
+        if attribute_l in DISCIPLINES and discipline_l in ATTRIBUTES:
+            attribute_l, discipline_l = discipline_l, attribute_l
+            attribute, discipline = discipline, attribute
 
         try:
-            attr = character.get_attribute(attribute)
+            attr = character.get_attribute(attribute_l)
         except AttributeError:
             await ctx.send(f"Bad attribute: {attribute}")
             return
 
         try:
-            disc = character.get_discipline(discipline)
+            disc = character.get_discipline(discipline_l)
         except AttributeError:
             await ctx.send(f"Bad discipline: {discipline}")
             return

@@ -82,6 +82,64 @@ async def test_del_char() -> None:
 
 @pytest.mark.asyncio()
 @pytest.mark.usefixtures("set_db")
+@pytest.mark.parametrize(
+    "attr,disc",
+    [
+        ("reason", "science"),
+        ("science", "reason"),
+        ("SCience", "REason"),
+    ],
+)
+async def test_challenge_attribute_order(attr: str, disc: str) -> None:
+    random.seed(1)
+    cog = MagicMock()
+    session = db.Session()
+    guild_id = 555
+    player_id = 111
+    session.add(
+        Character(
+            guild=guild_id,
+            player=player_id,
+            name="name",
+            race="race",
+            attr_reason=5,
+            disc_science=12,
+        )
+    )
+    session.commit()
+    context = MagicMock()
+    context.author.id = player_id
+    context.guild.id = guild_id
+    context.guild.__bool__.return_value = True
+    context.author.__bool__.return_value = True
+    future: Future[bool] = asyncio.Future()
+    future.set_result(True)
+    context.send.return_value = future
+    context.mock_add_spec(["guild", "author", "send"], spec_set=True)
+    assert (await STA.challenge(cog, context, attr, disc, 1, 2)) is None
+    msg = context.send.mock_calls[0]
+    embed: Embed = msg.kwargs["embed"]
+    file: File = msg.kwargs["file"]
+
+    # This is done by send normally
+    file.close()
+
+    assert embed.author.name is Embed.Empty
+    assert embed.title == "Challenge"
+    assert embed.description == "Science (12) + Reason (5)"
+
+    fields = cast(List[EmbedProxy], embed.fields)
+    AssertEmbed(fields[0]).has_name("Difficulty: ").has_value("1")
+    AssertEmbed(fields[1]).has_name("Successes: ").has_value("1")
+    AssertEmbed(fields[2]).has_name("Complications: ").has_value("0")
+    AssertEmbed(fields[3]).has_name("Rolls: ").has_value("[5, 19]")
+
+    assert embed.image.url == "attachment://Green-alert.gif"
+    assert file.filename == "Green-alert.gif"
+
+
+@pytest.mark.asyncio()
+@pytest.mark.usefixtures("set_db")
 async def test_challenge() -> None:
     random.seed(1)
     session = db.Session()
