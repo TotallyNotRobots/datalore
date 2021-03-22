@@ -2,7 +2,7 @@ default_language_version:
   python: python3.8
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: e1668fe86af3810fbca72b8653fe478e66a0afdc  # frozen: v3.2.0
+  rev: 6e2418c5521b7d606e72914dced3253f9ace1205  # frozen: v3.4.0
   hooks:
   - id: trailing-whitespace
     args: ['--markdown-linebreak-ext=md,markdown']
@@ -33,11 +33,11 @@ repos:
   hooks:
   - id: black
 - repo: https://github.com/pycqa/isort
-  rev: 491b3461d572249de71a7b2572af281322d4f40b  # frozen: 5.6.3
+  rev: a6222a8a125ec719724e628a5d3d0d5c60923281  # frozen: 5.8.0
   hooks:
   - id: isort
 - repo: https://github.com/pre-commit/pygrep-hooks
-  rev: eae6397e4c259ed3d057511f6dd5330b92867e62  # frozen: v1.6.0
+  rev: 58ace0d0dc6b2439b737a5ea353f836f6a2bad13  # frozen: v1.8.0
   hooks:
   - id: python-no-eval
   - id: python-no-log-warn
