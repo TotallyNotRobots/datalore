@@ -37,7 +37,6 @@ jobs:
       run: pipenv run test
     - uses: codecov/codecov-action@v1.2.1
       with:
-        token: ${{ secrets.CODECOV_TOKEN }}
         name: build
         env_vars: PYTHON
         fail_ci_if_error: true
