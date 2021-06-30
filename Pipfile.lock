@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "3622022987d260cddfa4e3b1553649ccb1c5d29e8ae4e9717ee02b09bcd41234"
+            "sha256": "8937f817e0b3cb5a4f5f9d16676b7efb5b6d06675d6a07738dcf6ca4ef9997d0"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -274,11 +274,11 @@
         },
         "astroid": {
             "hashes": [
-                "sha256:87ae7f2398b8a0ae5638ddecf9987f081b756e0e9fc071aeebdca525671fc4dc",
-                "sha256:b31c92f545517dcc452f284bc9c044050862fbe6d93d2b3de4a215a6b384bf0d"
+                "sha256:19fd2d2e12bc3cae95687e8264b6593fe07339181a273eeb095da0e70faf4399",
+                "sha256:54810a3639365ae98b1f03897e73918111acb3a494065b9970a822e940764fa4"
             ],
-            "markers": "python_version >= '3.6'",
-            "version": "==2.5"
+            "markers": "python_version ~= '3.6'",
+            "version": "==2.6.1"
         },
         "attrs": {
             "hashes": [
@@ -489,11 +489,11 @@
         },
         "pylint": {
             "hashes": [
-                "sha256:bb4a908c9dadbc3aac18860550e870f58e1a02c9f2c204fdf5693d73be061210",
-                "sha256:bfe68f020f8a0fece830a22dd4d5dddb4ecc6137db04face4c3420a46a52239f"
+                "sha256:45b68315081027f1f8cbd20f870d23152ff94090487f022e7c32694a70954d65",
+                "sha256:697f69ec93ad6ec9cf0eecff54ac7e1fb836e1330807a2d077173de42b54cf14"
             ],
             "index": "pypi",
-            "version": "==2.6.0"
+            "version": "==2.9.0"
         },
         "pyparsing": {
             "hashes": [
