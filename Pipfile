@@ -22,7 +22,7 @@ aiohttp = "~=3.6.3"
 sqlalchemy = "~=1.4.19"
 "ruamel.yaml" = "~=0.16.12"
 discord-ext-typed-commands = "~=1.0.3"
-typing-extensions = "~=3.7.4.3"
+typing-extensions = "~=4.4.0"
 
 [requires]
 python_version = "3.8"
